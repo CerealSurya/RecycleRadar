@@ -8,7 +8,7 @@ export const handleUploadPhoto = (photo: any) => {
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
-      body: JSON.stringify(createFormData(photo, { userId: '123' })),
+      body: JSON.stringify(createFormData(photo, { userId: '123' })), //TODO: Need to get userId for each user
     })
       .then((response) => response.json())
       .then((response) => {
@@ -20,13 +20,6 @@ export const handleUploadPhoto = (photo: any) => {
 };
 
 const createFormData = (photo: any, body = {}) => {
-    //const data = new FormData();
-    // data.append('photo', {
-    //     name: photo.fileName,
-    //     type: photo.type,
-    //     uri: Platform.OS === 'ios' ? photo.uri.replace('file://', '') : photo.uri,
-    // });
-
     const data: Object = {
         name: photo.fileName,
         type: photo.type,
