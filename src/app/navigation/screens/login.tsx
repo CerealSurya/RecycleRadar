@@ -3,7 +3,7 @@ import { Text, View, TextInput, Button} from 'react-native';
 import React from 'react';
 import { Link } from "expo-router";
 import { useRouter } from "expo-router";
-import { loginFunc } from '../api';
+import { loginFunc } from '../../api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function login(){
