@@ -22,23 +22,8 @@ export default function App() {
           <Text>Create Post</Text>
         </Pressable>
       </Link>
-      <Button title="Create Cleanup" onPress={() => navigation.push("/login")} />
+      <Button title="Login" onPress={() => navigation.push("/login")} />
+      <MainContainer />
     </View>
   );
-}
-const navigation = useRouter();
-
-return (
-  <View style={styles.container}>
-    <Text>Open up App.tsx to start working on your app</Text>
-    <StatusBar style="auto" />
-    <Link href="/createPost" asChild>
-      <Pressable>
-        <Text>Create Post</Text>
-      </Pressable>
-    </Link>
-    <Button title="Create Cleanup" onPress={() => navigation.push("/createPost")} />
-    <MainContainer />
-  </View>
-);
 }
