@@ -17,7 +17,7 @@ export default function App() {
                 <Text>Create Post</Text>
             </Pressable>
         </Link>
-        <Button title="Create Cleanup" onPress={() => navigation.push("/createPost")} />
+        <Button title="Create Cleanup" onPress={() => navigation.push("/login")} />
       </View>
     );
   }
