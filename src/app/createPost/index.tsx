@@ -2,6 +2,7 @@ import { Platform } from 'react-native';
 import { Text, View, Button } from 'react-native';
 import React from 'react';
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
+import { publishcleanup } from '../api';
 
 const SERVER_URL = "localhost"; //TODO: Put the server url here
 
@@ -31,23 +32,11 @@ export default function createPost(){
     }
 
     const createCleanup = (photo: any) => {  
-        fetch(`${SERVER_URL}/api/upload`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify(createFormData(photo, { userId: '123' })), //TODO: Need to get userId for each user
-        })
-        .then((response) => response.json())
-        .then((response) => {
-            console.log('response', response);
-        })
-        .catch((error) => {
-            console.log('error', error);
-        });
+        const response = publishcleanup(createFormData(photo));
+        //TODO: Deal with response
     };
 
-    const createFormData = (photo: any, body = {}) => {
+    const createFormData = (photo: any, body = {}): Object => {
         const data: Object = {
             name: photo.fileName,
             type: photo.type,

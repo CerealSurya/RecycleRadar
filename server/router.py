@@ -6,7 +6,7 @@ import json
 
 def main(testing, app, db, users):
     #gunicorn -w 4 "server.src.router:main()"
-    @app.route("/login/", methods=["POST"]) #login page
+    @app.route("/login", methods=["POST"]) #login page
     def login():
         usern = request.args.get("usern")
         passw = request.args.get("passw")
@@ -17,12 +17,10 @@ def main(testing, app, db, users):
             else:
                 right_password = users.validate(passw, find_user.password)
                 if right_password:
-                    if find_user.active == "True":
-                        return {"token": "logged in", "config": find_user.userId}
-                    else:
-                        return {"token": "failed", "reason": "account is not active"}
+                    return {"token": "logged in", "config": find_user.userId}
                 else:
                     return {"token": "failed", "reason": "Invalid Credentials"}
+        return {"token": "", "reason": "error"}
 
     @app.route("/createaccount/", methods=["POST"])
     def createaccount():
@@ -58,7 +56,7 @@ def main(testing, app, db, users):
         else:
             find_user.events.append(eventDetails)
             db.session.commit()
-            return {"token": "Success"}
+            return {"token": "Success", "reason": ""}
 
     @app.route("/getcleanups/", methods=["GET"])
     def getcleanups():
@@ -83,7 +81,7 @@ def main(testing, app, db, users):
         else:
             find_user.events.append(postDetails)
             db.session.commit()
-            return {"token": "Success"}
+            return {"token": "Success", "reason": ""}
 
     @app.route("/getposts/", methods=["GET"])
     def getposts():
@@ -96,7 +94,7 @@ def main(testing, app, db, users):
     if testing:  
         with app.app_context():
             db.create_all()
-        app.run(host = "localhost", port=6900, debug=True)
+        app.run(port=6900, debug=True)
         #app.run(debug=True)
     else:
         db.create_all()
