@@ -27,7 +27,11 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow RecycleRadar to use your location."
+        }
     ]
   }
 }

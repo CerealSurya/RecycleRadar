@@ -23,16 +23,27 @@ interface publishpostInterface {
     "token": String, 
     "reason": String
 }
-export function publishpost(): Promise<publishpostInterface>{
+export function publishpost(name:String, description:String, photo:String, author:String, location:String, date:String): Promise<publishpostInterface>{
+    const body:Object = {
+        "name": name,
+        "description": description,
+        "photo": photo,
+        "author": author,
+        "location": location,
+        "date": date
+    }
     fetch(`${SERVER_URL}/publishpost`, {
-        method: 'POST'
-    })//TODO: Get the body from text inputs 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body)
+    })
     // the JSON body is taken from the response
-    .then(res => res.json())
     .then(res => {
       // The response has an `any` type, so we need to cast
       // it to the `User` type, and return it from the promise
-        return res as publishpostInterface
+        return res.json();
     })
     return null as any;
 }
