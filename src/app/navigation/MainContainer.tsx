@@ -5,22 +5,35 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { View, Text, StyleSheet } from 'react-native';
 
 // Import your screens
-import scrollPage from './screens/scrollPage';
-import cameraPage from './screens/cameraPage';
-import createPost from './screens/createPost';
-import profileScreen from './screens/profileScreen';
-import topCleanups from './screens/topCleanups';
-import login from './screens/login';
+import ScrollPage from './screens/scrollPage';
+import CameraPage from './screens/cameraPage';
+import CreatePost from './screens/createPost';
+import ProfileScreen from './screens/profileScreen';
+import TopCleanups from './screens/topCleanups';
+import Login from './screens/login';
 
 // Screen names
 const scroll = 'Home';
-const camera = 'Recycle Detector';
+const camera = 'Detector';
 const post = 'Post Cleanup';
 const profile = 'Profile';
 const top = 'View Cleanups';
 const signIn = 'Login';
 
 const Tab = createBottomTabNavigator();
+const screenOptionss = {
+    tabBarShowLabel: false,
+    headerShown: false,
+    tabBarStyle: {
+        position: "absolute",
+        bottom: 0,
+        right: 0,
+        left: 0,
+        elevation: 0,
+        height: 60,
+        backgroundColor: "#fff"
+    }
+}
 
 export default function MainContainer() {
     return (
@@ -39,18 +52,31 @@ export default function MainContainer() {
                     } else if (route.name === profile) {
                         iconName = focused ? 'person' : 'person-outline';
                     } else if (route.name === top) {
-                        iconName = focused ? 'star' : 'star-outline';
+                        iconName = focused ? 'flame' : 'flame-outline';
                     }
 
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
             })}
         >
-            <Tab.Screen name={scroll} component={scrollPage} />
-            <Tab.Screen name={camera} component={cameraPage} />
-            <Tab.Screen name={post} component={createPost} />
-            <Tab.Screen name={profile} component={profileScreen} />
-            <Tab.Screen name={top} component={topCleanups} />
+            <Tab.Screen name={scroll} component={ScrollPage} options={{
+                tabBarShowLabel: true,
+                headerShown: false,
+                tabBarStyle: {
+                    position: "absolute",
+                    bottom: 0,
+                    right: 0,
+                    left: 0,
+                    elevation: 0,
+                    height: 80,
+                    backgroundColor: "#fff"
+                }
+            }}
+            />
+            <Tab.Screen name={camera} component={CameraPage} />
+            <Tab.Screen name={post} component={CreatePost} />
+            <Tab.Screen name={profile} component={ProfileScreen} />
+            <Tab.Screen name={top} component={TopCleanups} />
         </Tab.Navigator>
     );
 }

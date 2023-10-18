@@ -28,10 +28,7 @@
     },
     "plugins": [
       "expo-router",
-      "expo-location",
-        {
-          "locationAlwaysAndWhenInUsePermission": "Allow RecycleRadar to use your location."
-        }
+      "expo-location"
     ]
   }
 }
