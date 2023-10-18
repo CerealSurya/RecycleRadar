@@ -3,6 +3,7 @@ import os
 from passlib.hash import sha256_crypt
 import traceback
 import json
+import requests
 
 def main(testing, app, db, users):
     #gunicorn -w 4 "server.src.router:main()"
@@ -99,3 +100,17 @@ def main(testing, app, db, users):
     else:
         db.create_all()
         return app
+    @app.route("/classify-trash", methods=["POST"])
+    def classify_trash():
+        image = request.files['image']
+        image.save("input.jpg")
+
+        # Assuming your Trash AI server is running locally on port 5150
+        response = requests.post("http://localhost:5150/classify", files={"file": open("input.jpg", "rb")})
+
+        os.remove("input.jpg")  # Optionally delete the temporary image file
+
+        if response.ok:
+            return {"classification": response.json()}
+        else:
+            return {"error": "Failed to classify image"}, 500
