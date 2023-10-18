@@ -19,7 +19,7 @@ export default function scrollPage({ navigation }: Props) {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text
                 onPress={() => alert('This is the "Home" screen')}
-                style={{ fontSize: 26, fontWeight: 'bold' }}>Profile Screen</Text>
+                style={{ fontSize: 26, fontWeight: 'bold' }}>Scroll Page</Text>
         </View>
     );
 };

@@ -25,39 +25,39 @@ export default function createPost({ navigation }: Props) {
     const [postDescript, setDescript] = React.useState(String);
     const [location, setLocation] = React.useState(String);
     const date: String = (new Date().getDate()).toString()
-    let author:any;
-    AsyncStorage.getItem('userId').then((resp) =>{author = resp;});
+    let author: any;
+    AsyncStorage.getItem('userId').then((resp) => { author = resp; });
     React.useEffect(() => {
-    (async () => {
-        
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted') {
-            setLocation('Permission to access location was denied');
-            return;
-        }
+        (async () => {
 
-        let getLocation = await Location.getCurrentPositionAsync({});
-        setLocation(JSON.stringify(getLocation));
-    })();
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                setLocation('Permission to access location was denied');
+                return;
+            }
+
+            let getLocation = await Location.getCurrentPositionAsync({});
+            setLocation(JSON.stringify(getLocation));
+        })();
     }, []);
     const handleChoosePhoto = async () => {
         // No permissions request is necessary for launching the image library
-      let result = await launchImageLibraryAsync({
-        mediaTypes: MediaTypeOptions.All,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      });
-      if (!result.canceled) {
-        setPhoto(result.assets[0]);
-        console.log(result.assets[0].uri);
-      }
+        let result = await launchImageLibraryAsync({
+            mediaTypes: MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+        if (!result.canceled) {
+            setPhoto(result.assets[0]);
+            console.log(result.assets[0].uri);
+        }
     }
 
-    const createPost = async () => {  
-        if (postName != "" && postDescript != "") { 
+    const createPost = async () => {
+        if (postName != "" && postDescript != "") {
             const response = await publishpost(postName, postDescript, photo.uri, author, location, date);
-            if(response != null && response.token == "Success"){
+            if (response != null && response.token == "Success") {
                 //TODO: redirect to home page, or display notification saying post went through
                 console.log('Form submitted successfully!');
             }
@@ -91,19 +91,19 @@ export default function createPost({ navigation }: Props) {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text
                 onPress={() => navigation.navigate('scrollPage')}
-                style={{ fontSize: 26, fontWeight: 'bold' }}>Profile Screen</Text>
+                style={{ fontSize: 26, fontWeight: 'bold' }}>PCreate Post</Text>
             <Text>The create post page!</Text>
             <Button title="Choose Photo" onPress={handleChoosePhoto} />
-            <TextInput 
+            <TextInput
                 //style={styles.input} //TODO: Get the styles working
-                placeholder="Title" 
-                onChangeText={setPostName} 
+                placeholder="Title"
+                onChangeText={setPostName}
             />
-            <TextInput 
+            <TextInput
                 //style={styles.input} //TODO: Get the styles working
-                placeholder="Description" 
-                onChangeText={setDescript} 
-            /> 
+                placeholder="Description"
+                onChangeText={setDescript}
+            />
             <Button title="Publish Post" onPress={createPost} />
         </View>
     );

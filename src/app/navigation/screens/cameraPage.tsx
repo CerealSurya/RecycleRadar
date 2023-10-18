@@ -19,7 +19,7 @@ export default function cameraPage({ navigation }: Props) {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text
                 onPress={() => navigation.navigate('scrollPage')}
-                style={{ fontSize: 26, fontWeight: 'bold' }}>Profile Screen</Text>
+                style={{ fontSize: 26, fontWeight: 'bold' }}>Camera</Text>
         </View>
     );
 }
