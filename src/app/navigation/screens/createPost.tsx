@@ -62,7 +62,30 @@ export default function createPost({ navigation }: Props) {
                 console.log('Form submitted successfully!');
             }
         }
-    };
+        let formData = new FormData();
+
+        const response = await fetch(photo.uri);
+        const blob = await response.blob();
+        formData.append('image', blob, 'photo.jpg');
+        
+        fetch('http://localhost:5150', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Classification result:', data.classification);
+            // Now post the image and classification result to your original endpoint
+            // ...
+        })
+        .catch(error => {
+            console.error('Error classifying image:', error);
+        });
+    }
+
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -84,4 +107,4 @@ export default function createPost({ navigation }: Props) {
             <Button title="Publish Post" onPress={createPost} />
         </View>
     );
-}
+    }
