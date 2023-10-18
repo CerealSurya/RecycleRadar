@@ -21,7 +21,7 @@ const top = 'View Cleanups';
 const signIn = 'Login';
 
 const Tab = createBottomTabNavigator();
-const screenOptionss = {
+const screenOptions = {
     tabBarShowLabel: false,
     headerShown: false,
     tabBarStyle: {

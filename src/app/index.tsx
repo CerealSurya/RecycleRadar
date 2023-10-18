@@ -9,13 +9,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 export default function App() {
-  const navigation = useRouter();
+  const router = useRouter();
+
+  // if user isn't logged in it redirects person to login screen
   // const { user } = useAuth();
   // if (!user) {
   //   return <Redirect href="../app/navigation/screens/login.tsx" />;
   // }
 
-  // const router = useRouter();
 
   // useFocusEffect(() => {
   //   router.replace('../app/navigation/MainContainer.tsx');
@@ -23,14 +24,6 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app</Text>
-      <StatusBar style="auto" />
-      <Link href="/src/app/navigation/screens/createPost.tsx" asChild>
-        <Pressable>
-          <Text>Create Post</Text>
-        </Pressable>
-      </Link>
-      <Button title="Login" onPress={() => navigation.push("/login")} />
       <MainContainer />
     </View>
   );
