@@ -1,12 +1,8 @@
 import { Redirect, useRouter, useFocusEffect } from "expo-router";
 import { Text, View, Button, Pressable } from "react-native";
-import { StatusBar } from 'expo-status-bar';
 import { styles } from "./styles"
 import React from 'react';
-import { Link } from "expo-router";
-import MainContainer from './navigation/MainContainer';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import MainContainer from './MainContainer';
 
 export default function App() {
   const router = useRouter();
@@ -24,6 +20,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Button title="Login" onPress={() => router.push('/login')} />
       <MainContainer />
     </View>
   );

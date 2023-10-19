@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 import { View, Text, Button, TextInput } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
-import { publishpost } from '../../api';
+import { publishpost } from '../api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
 
@@ -19,7 +19,7 @@ type Props = {
     navigation: createPostNavigationProp;
 };
 
-export default function createPost({ navigation }: Props) {
+export default function CreatePost({ navigation }: Props) {
     const [photo, setPhoto] = React.useState(Object);
     const [postName, setPostName] = React.useState(String);
     const [postDescript, setDescript] = React.useState(String);

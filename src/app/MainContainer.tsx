@@ -1,16 +1,14 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { View, Text, StyleSheet } from 'react-native';
 
 // Import your screens
-import ScrollPage from './screens/scrollPage';
-import CameraPage from './screens/cameraPage';
-import CreatePost from './screens/createPost';
-import ProfileScreen from './screens/profileScreen';
-import TopCleanups from './screens/topCleanups';
-import Login from './screens/login';
+// import ScrollPage from './scrollPage/index';
+import CreatePost from './createPost/index';
+// import ProfileScreen from './profileScreen/index';
+// import TopCleanups from './topCleanups/index';
+//import Login from './screens/login';
 
 // Screen names
 const scroll = 'Home';
@@ -59,7 +57,7 @@ export default function MainContainer() {
                 },
             })}
         >
-            <Tab.Screen name={scroll} component={ScrollPage} options={{
+            {/* <Tab.Screen name={scroll} component={ScrollPage} options={{
                 tabBarShowLabel: true,
                 headerShown: false,
                 tabBarStyle: {
@@ -72,11 +70,11 @@ export default function MainContainer() {
                     backgroundColor: "#fff"
                 }
             }}
-            />
-            <Tab.Screen name={camera} component={CameraPage} />
+            /> */}
+            {/* <Tab.Screen name={camera} component={CameraPage} /> */}
             <Tab.Screen name={post} component={CreatePost} />
-            <Tab.Screen name={profile} component={ProfileScreen} />
-            <Tab.Screen name={top} component={TopCleanups} />
+            {/* <Tab.Screen name={profile} children={ProfileScreen} />
+            <Tab.Screen name={top} children={TopCleanups} /> */}
         </Tab.Navigator>
     );
 }
