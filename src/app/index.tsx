@@ -24,10 +24,6 @@ export default function App() {
     //   <Button title="Login" onPress={() => router.push('/login')} />
     //   <MainContainer />
     // </View>
-    <View>
-      <MainContainer />
-
-    </View>
-
+    <MainContainer />
   );
 }
