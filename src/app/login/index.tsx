@@ -1,14 +1,11 @@
-import { Platform } from 'react-native';
-import { Text, View, TextInput, Button} from 'react-native';
+import { Text, View, TextInput, Button, Pressable} from 'react-native';
 import React from 'react';
-import { Link } from "expo-router";
-import { useRouter } from "expo-router";
 import { loginFunc } from '../api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { styles } from "./styles" 
 
 export default function login(){
-    const router = useRouter();
-    const [username, setUsername] = React.useState(String); 
+    const [username, setUsername] = React.useState(String);
     const [password, setPassword] = React.useState(String);
 
     const submitLogin = async () => {
@@ -34,19 +31,23 @@ export default function login(){
     }
 
     return (
-        <View>
-            <TextInput 
+        <View style={styles.container}>
+            <Text style={styles.title}>Welcome Back!</Text>
+            <Text style={styles.subtitle}>Enter Username & Password below</Text>
+            <TextInput style={styles.username}
                 //style={styles.input} //TODO: Get the styles working
                 placeholder="Username" 
                 onChangeText={setUsername} 
             />
-            <TextInput 
+            <TextInput style={styles.password}
                 //style={styles.input} //TODO: Get the styles working
                 placeholder="Password" 
                 onChangeText={setPassword} 
-            /> 
-            <Button title="Submit Login" onPress={submitLogin} />
-            <Button title="Create Post" onPress={() => router.push('/createPost')} />
+            />
+            <Pressable style={styles.button} onPress={submitLogin}>
+                <Text style={styles.text}>Submit Login</Text>
+            </Pressable>
+            {/* <Button style={styles.button} title="Submit Login" onPress={submitLogin} /> */}
         </View>
     );
 };
