@@ -25,11 +25,12 @@ export default function CreatePost({ navigation }: Props) {
     const [postDescript, setDescript] = React.useState(String);
     const [location, setLocation] = React.useState(String);
     const date: String = (new Date().getDate()).toString()
-    let author: any;
-    AsyncStorage.getItem('userId').then((resp) => { author = resp; });
+    const [author, setAuthor] = React.useState(String);
     React.useEffect(() => {
         (async () => {
-
+            let authorr = await AsyncStorage.getItem('userId');
+            if (authorr != null){setAuthor(authorr);}
+            
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 setLocation('Permission to access location was denied');
@@ -63,28 +64,28 @@ export default function CreatePost({ navigation }: Props) {
                 console.log('Form submitted successfully!');
             }
         }
-        let formData = new FormData();
+        // let formData = new FormData();
 
-        const response = await fetch(photo.uri);
-        const blob = await response.blob();
-        formData.append('image', blob, 'photo.jpg');
+        // const response = await fetch(photo.uri);
+        // const blob = await response.blob();
+        // formData.append('image', blob, 'photo.jpg');
         
-        fetch('http://localhost:5150', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Classification result:', data.classification);
-            // Now post the image and classification result to your original endpoint
-            // ...
-        })
-        .catch(error => {
-            console.error('Error classifying image:', error);
-        });
+        // fetch('http://localhost:5150', {
+        //     method: 'POST',
+        //     body: formData,
+        //     headers: {
+        //         'Content-Type': 'multipart/form-data',
+        //     },
+        // })
+        // .then(response => response.json())
+        // .then(data => {
+        //     console.log('Classification result:', data.classification);
+        //     // Now post the image and classification result to your original endpoint
+        //     // ...
+        // })
+        // .catch(error => {
+        //     console.error('Error classifying image:', error);
+        // });
     }
 
 

@@ -24,12 +24,13 @@ export default function createCleanup({ navigation }: Props) {
     const [postName, setPostName] = React.useState(String);
     const [postDescript, setDescript] = React.useState(String);
     const [location, setLocation] = React.useState(String);
+    const [author, setAuthor] = React.useState(String);
+    const [materials, setMaterials] = React.useState(String);
     const date: String = (new Date().getDate()).toString()
-    let author: any;
-    AsyncStorage.getItem('userId').then((resp) => { author = resp; });
     React.useEffect(() => {
         (async () => {
-
+            let authorr = await AsyncStorage.getItem('userId');
+            if (authorr != null){setAuthor(authorr);}
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 setLocation('Permission to access location was denied');
@@ -53,9 +54,50 @@ export default function createCleanup({ navigation }: Props) {
             console.log(result.assets[0].uri);
         }
     }
+    const createCleanup = async () => {
+        if (postName != "" && postDescript != "") {
+            const data:object = {
+                eventName: postName,
+                author: author,
+                picture: photo.uri,
+                description: postDescript,
+                location: location,
+                date: date,
+                materials: materials
+            }
+            const response = await publishcleanup(data);
+            if (response != null && response.token == "Success") {
+                //TODO: redirect to home page, or display notification saying post went through
+                console.log('Form submitted successfully!');
+            }
+        }
+    }
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style= {styles.container}>
+            <Text style= {styles.title}>Create Cleanup</Text>
+            <TextInput
+                style={styles.titleInput}
+                placeholder="Title"
+                onChangeText={setPostName}
+            />
+            <TextInput
+                style={styles.titleInput}
+                placeholder="Description"
+                onChangeText={setDescript}
+            />
+            <TextInput
+                style={styles.titleInput}
+                placeholder="Materials Needed"
+                onChangeText={setMaterials}
+            />
 
+            <Pressable style={styles.firstButton} onPress={handleChoosePhoto}>
+                <Text style={styles.text}>Select Photo</Text>
+            </Pressable>
+            {photo && <Image source={{ uri: photo.uri }} style={styles.photo} />}
+            <Pressable style={styles.secondButton} onPress={createCleanup}>
+                <Text style={styles.text}>Publish Cleanup</Text>
+            </Pressable>
         </View>
     );
 }
