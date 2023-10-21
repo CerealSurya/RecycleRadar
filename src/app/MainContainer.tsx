@@ -2,22 +2,23 @@ import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { View, Text, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Import your screens
 import ScrollPage from './scrollPage/index';
 import CreatePost from './createPost/index';
 import ProfileScreen from './profileScreen/index';
 import TopCleanups from './topCleanups/index';
-import CreatePage from './createPage/index';
+import createCleanup from './createCleanup/index';
 import Login from './login/index';
 
 // Screen names
-const scroll = 'Home';
 const camera = 'Detector';
 const post = 'Post Cleanup';
 const profile = 'Profile';
 const top = 'View Cleanups';
 const signIn = 'Login';
+let homee:string = 'Home';
 
 const Tab = createBottomTabNavigator();
 const screenOptions = {
@@ -33,7 +34,27 @@ const screenOptions = {
         backgroundColor: "#fff"
     }
 }
+const CheckLogin = () => {
+    const [ID, setID] = React.useState<number | null>(); 
+    React.useEffect(() => {
+        (async () => {
 
+            let IDD = await AsyncStorage.getItem('userId');
+            if (IDD != null)
+            {
+                setID(parseInt(IDD));
+            }
+        })();
+    }, []);
+    if (typeof ID != 'number')
+    {
+        homee = 'Login';
+        console.log(ID);
+        return <Login />
+    }
+    homee = 'Home';
+    return <ScrollPage />
+}
 export default function MainContainer() {
     return (
         <Tab.Navigator
@@ -42,7 +63,7 @@ export default function MainContainer() {
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName: string = '';
 
-                    if (route.name === scroll) {
+                    if (route.name === homee) {
                         iconName = focused ? 'home' : 'home-outline';
                     } else if (route.name === camera) {
                         iconName = focused ? 'camera' : 'camera-outline';
@@ -72,11 +93,11 @@ export default function MainContainer() {
                 }
             }}
             /> */}
-            <Tab.Screen name={camera} component={CreatePage} />
+            <Tab.Screen name={homee} component={CheckLogin} />
             <Tab.Screen name={post} component={CreatePost} />
             <Tab.Screen name={profile} children={ProfileScreen} />
             <Tab.Screen name={top} children={TopCleanups} />
-            <Tab.Screen name={scroll} children={ScrollPage} />
+            <Tab.Screen name={camera} component={createCleanup} />
 
         </Tab.Navigator>
     );

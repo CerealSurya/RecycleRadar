@@ -13,8 +13,8 @@ type scrollPageNavigationProp = StackNavigationProp<RootStackParamList, 'scrollP
 type Props = {
     navigation: scrollPageNavigationProp;
 };
-
-export default function scrollPage({ navigation }: Props) {
+//{ navigation }: Props
+export default function scrollPage() {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text
