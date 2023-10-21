@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Platform } from 'react-native';
-import { View, Text, Button, TextInput } from 'react-native';
+import { View, Text, Pressable, TextInput, Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
 import { publishpost } from '../api';
+import { styles } from './styles'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
 
@@ -88,23 +88,25 @@ export default function CreatePost({ navigation }: Props) {
 
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text
-                onPress={() => navigation.navigate('scrollPage')}
-                style={{ fontSize: 26, fontWeight: 'bold' }}>PCreate Post</Text>
-            <Text>The create post page!</Text>
-            <Button title="Choose Photo" onPress={handleChoosePhoto} />
+        <View style= {styles.container}>
+            <Text style= {styles.title}>Create Post</Text>
             <TextInput
-                //style={styles.input} //TODO: Get the styles working
+                style={styles.titleInput}
                 placeholder="Title"
                 onChangeText={setPostName}
             />
             <TextInput
-                //style={styles.input} //TODO: Get the styles working
+                style={styles.descripInput}
                 placeholder="Description"
                 onChangeText={setDescript}
             />
-            <Button title="Publish Post" onPress={createPost} />
+            <Pressable style={styles.firstButton} onPress={handleChoosePhoto}>
+                <Text style={styles.text}>Select Photo</Text>
+            </Pressable>
+            {photo && <Image source={{ uri: photo.uri }} style={styles.photo} />}
+            <Pressable style={styles.secondButton} onPress={createPost}>
+                <Text style={styles.text}>Publish Post</Text>
+            </Pressable>
         </View>
     );
     }
