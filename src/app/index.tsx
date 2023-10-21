@@ -3,6 +3,7 @@ import { Text, View, Button, Pressable } from "react-native";
 import { styles } from "./styles"
 import React from 'react';
 import MainContainer from './MainContainer';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
   const router = useRouter();
@@ -19,9 +20,14 @@ export default function App() {
   // });
 
   return (
-    <View style={styles.container}>
-      <Button title="Login" onPress={() => router.push('/login')} />
+    // <View style={styles.container}>
+    //   <Button title="Login" onPress={() => router.push('/login')} />
+    //   <MainContainer />
+    // </View>
+    <View>
       <MainContainer />
+
     </View>
+
   );
 }

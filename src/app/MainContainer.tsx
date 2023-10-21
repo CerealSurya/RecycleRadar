@@ -4,11 +4,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { View, Text, StyleSheet } from 'react-native';
 
 // Import your screens
-// import ScrollPage from './scrollPage/index';
+import ScrollPage from './scrollPage/index';
 import CreatePost from './createPost/index';
-// import ProfileScreen from './profileScreen/index';
-// import TopCleanups from './topCleanups/index';
-//import Login from './screens/login';
+import ProfileScreen from './profileScreen/index';
+import TopCleanups from './topCleanups/index';
+import CreatePage from './createPage/index';
+import Login from './login/index';
 
 // Screen names
 const scroll = 'Home';
@@ -71,10 +72,12 @@ export default function MainContainer() {
                 }
             }}
             /> */}
-            {/* <Tab.Screen name={camera} component={CameraPage} /> */}
+            <Tab.Screen name={camera} component={CreatePage} />
             <Tab.Screen name={post} component={CreatePost} />
-            {/* <Tab.Screen name={profile} children={ProfileScreen} />
-            <Tab.Screen name={top} children={TopCleanups} /> */}
+            <Tab.Screen name={profile} children={ProfileScreen} />
+            <Tab.Screen name={top} children={TopCleanups} />
+            <Tab.Screen name={scroll} children={ScrollPage} />
+
         </Tab.Navigator>
     );
 }
