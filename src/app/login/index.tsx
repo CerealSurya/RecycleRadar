@@ -1,12 +1,10 @@
 import { Text, View, TextInput, Button, Pressable} from 'react-native';
-import { useRouter } from "expo-router";
 import React from 'react';
 import { loginFunc } from '../api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from "./styles" 
 
 export default function login(){
-    const navigation = useRouter();
     const [username, setUsername] = React.useState(String);
     const [password, setPassword] = React.useState(String);
 
@@ -18,7 +16,6 @@ export default function login(){
                 //write the userid to the local storage so it can be used globally
                 await AsyncStorage.setItem('userId', response.config.toString());
                 console.log('Form submitted successfully!');
-                navigation.push("/scrollPage")
             }
             else
             {

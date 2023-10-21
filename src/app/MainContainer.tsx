@@ -13,7 +13,6 @@ import createCleanup from './createCleanup/index';
 import Login from './login/index';
 
 // Screen names
-const cleanup = 'Create Cleanup';
 const camera = 'Detector';
 const post = 'Post Cleanup';
 const profile = 'Profile';
@@ -98,7 +97,7 @@ export default function MainContainer() {
             <Tab.Screen name={post} component={CreatePost} />
             <Tab.Screen name={profile} children={ProfileScreen} />
             <Tab.Screen name={top} children={TopCleanups} />
-            <Tab.Screen name={cleanup} component={createCleanup} />
+            <Tab.Screen name={camera} component={createCleanup} />
 
         </Tab.Navigator>
     );
@@ -111,4 +110,3 @@ const styles = StyleSheet.create({
 
     }
 });
-

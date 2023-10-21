@@ -3,7 +3,7 @@ import { View, Text, Pressable, TextInput, Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
 import { publishpost } from '../api';
-import { styles } from './styles';
+import { styles } from './styles'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
 
@@ -39,7 +39,6 @@ export default function CreatePost({ navigation }: Props) {
 
             let getLocation = await Location.getCurrentPositionAsync({});
             setLocation(JSON.stringify(getLocation));
-            console.log(location); //!Location not working
         })();
     }, []);
     const handleChoosePhoto = async () => {
