@@ -13,10 +13,10 @@ export default function login(){
     const submitLogin = async () => {
         if (username != "" && password != "") { 
             const response = await loginFunc(username, password)
-            console.log("made it");
             if(response != null && response.token == "logged in"){
                 //write the userid to the local storage so it can be used globally
                 await AsyncStorage.setItem('userId', response.config.toString());
+                await AsyncStorage.setItem('username', response.username.toString());
                 console.log('Form submitted successfully!');
                 navigation.push("/scrollPage");
             }
