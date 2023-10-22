@@ -1,7 +1,8 @@
 const SERVER_URL = "http://10.0.2.2:6900";
 interface loginInterface {
-    "token": String, 
-    "config": number
+    "token": string, 
+    "config": number,
+    "username": string
 }//`${SERVER_URL}/login?usern=${usern}&passw=${passw}`
 
 export async function loginFunc(usern:String, passw:String): Promise<loginInterface>{
@@ -25,12 +26,13 @@ interface publishpostInterface {
 }
 export function publishpost(name:String, description:String, photo:String, author:String, location:String, date:String): Promise<publishpostInterface>{
     const body:Object = {
-        "name": name,
-        "description": description,
-        "photo": photo,
+        "postName": name,
         "author": author,
+        "picture": photo,
+        "description": description,
         "location": location,
-        "date": date
+        "date": date,
+        "id": 0 //ID doesn't matter gets overwritten on server
     }
     fetch(`${SERVER_URL}/publishpost`, {
         method: 'POST',
@@ -47,7 +49,19 @@ export function publishpost(name:String, description:String, photo:String, autho
     })
     return null as any;
 }
-
+interface getPostsInterface {
+    "token": string, 
+    "events": object[]
+}
+export async function getPosts(page:number): Promise<getPostsInterface>{
+    const response = await fetch(`${SERVER_URL}/getposts?page=${page}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })//data()
+    return response.json() as any;
+}
 export function publishcleanup(data:Object): Promise<publishpostInterface>{
     fetch(`${SERVER_URL}/publishcleanup`, {
         method: 'POST',

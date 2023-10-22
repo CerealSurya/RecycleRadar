@@ -28,7 +28,7 @@ export default function CreatePost({ navigation }: Props) {
     const [author, setAuthor] = React.useState(String);
     React.useEffect(() => {
         (async () => {
-            let authorr = await AsyncStorage.getItem('userId');
+            let authorr = await AsyncStorage.getItem('username');
             if (authorr != null){setAuthor(authorr);}
             
             let { status } = await Location.requestForegroundPermissionsAsync();

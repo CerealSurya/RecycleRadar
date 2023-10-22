@@ -18,7 +18,7 @@ def main(testing, app, db, users):
             else:
                 right_password = users.validate(passw, find_user.password)
                 if right_password:
-                    return {"token": "logged in", "config": find_user.userId}
+                    return {"token": "logged in", "config": find_user.userId, "username": find_user.username}
                 else:
                     return {"token": "failed", "reason": "Invalid Credentials"}
         return {"token": "", "reason": "error"}
@@ -76,21 +76,39 @@ def main(testing, app, db, users):
         "description"
         "location"
         "date" #date that client side generates
+        "id" #server overrides it
         find_user = users.query.filter_by(username="posts").first() #our 'User' that stores all posts
         if find_user == None:
             return {"token": "failed", "reason": "User not found"} #should never happen 
         else:
-            find_user.events.append(postDetails)
+            postDetails["id"] = str(len(find_user.events))
+            events = []
+            for event in find_user.events:
+                events.append(event)
+            events.append(postDetails)
+            find_user.events = events
+            print(find_user.events)
             db.session.commit()
             return {"token": "Success", "reason": ""}
 
     @app.route("/getposts/", methods=["GET"])
     def getposts():
+        page = int(request.args.get("page"))
         find_user = users.query.filter_by(username="posts").first() #our 'User' that stores all cleanup events
         if find_user == None:
             return {"token": "failed", "reason": "User not found"} #should never happen 
         else:
-            return {"token": "Success", "events": find_user.events} #!Will info be readable?
+            events = [] #returns events in 10 block increments
+            if len(find_user.events) < 10:
+                events = find_user.events
+            elif page*10 > len(find_user.events):
+                events = find_user.events[:10]
+            elif page != 1:
+                events = find_user.events[-(page*10):(page*10-10)]
+            else:
+                events = find_user.events[-(page*10):]
+            print(events)
+            return {"token": "Success", "events": events} #!Will info be readable?
         
     if testing:  
         with app.app_context():

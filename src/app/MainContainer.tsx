@@ -102,11 +102,3 @@ export default function MainContainer() {
         </Tab.Navigator>
     );
 }
-
-
-
-const styles = StyleSheet.create({
-    MainContainer: {
-
-    }
-});
