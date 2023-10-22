@@ -29,6 +29,6 @@ def create_app(testing=True):
         def validate(input, db_passw):
             return sha256_crypt.verify(input, db_passw) #veerifying password input is = to encrypted password in db
             #returns true or false
-        subprocess.Popen(["docker", "run", "-p", "5150:5150", "-d", "code4sac/trashai:latest"])
+        #subprocess.Popen(["docker", "run", "-p", "5150:5150", "-d", "code4sac/trashai:latest"])
 
     return main(testing, app, db, users)

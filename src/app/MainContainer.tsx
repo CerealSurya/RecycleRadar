@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Import your screens
@@ -15,6 +15,7 @@ import Login from './login/index';
 // Screen names
 const camera = 'Detector';
 const post = 'Post Cleanup';
+const socialPost = 'Post'
 const profile = 'Profile';
 const top = 'View Cleanups';
 const signIn = 'Login';
@@ -58,7 +59,6 @@ const CheckLogin = () => {
 export default function MainContainer() {
     return (
         <Tab.Navigator
-            initialRouteName={signIn}
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName: string = '';
@@ -94,10 +94,10 @@ export default function MainContainer() {
             }}
             /> */}
             <Tab.Screen name={homee} component={CheckLogin} />
-            <Tab.Screen name={post} component={CreatePost} />
+            <Tab.Screen name={socialPost} component={CreatePost} />
             <Tab.Screen name={profile} children={ProfileScreen} />
             <Tab.Screen name={top} children={TopCleanups} />
-            <Tab.Screen name={camera} component={createCleanup} />
+            <Tab.Screen name={post} component={createCleanup} />
 
         </Tab.Navigator>
     );
