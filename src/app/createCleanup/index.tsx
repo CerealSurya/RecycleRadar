@@ -29,7 +29,7 @@ export default function createCleanup({ navigation }: Props) {
     const date: String = (new Date().getDate()).toString()
     React.useEffect(() => {
         (async () => {
-            let authorr = await AsyncStorage.getItem('userId');
+            let authorr = await AsyncStorage.getItem('username');
             if (authorr != null){setAuthor(authorr);}
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {

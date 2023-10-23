@@ -55,7 +55,11 @@ def main(testing, app, db, users):
         if find_user == None:
             return {"token": "failed", "reason": "User not found"} #should never happen 
         else:
-            find_user.events.append(eventDetails)
+            events = []
+            for event in find_user.events:
+                events.append(event)
+            events.append(eventDetails)
+            find_user.events = events
             db.session.commit()
             return {"token": "Success", "reason": ""}
 
@@ -65,8 +69,38 @@ def main(testing, app, db, users):
         if find_user == None:
             return {"token": "failed", "reason": "User not found"} #should never happen 
         else:
-            return {"token": "Success", "events": find_user.events} #!Will info be readable?
+            return {"token": "Success", "events": find_user.events} #TODO: Fix this endpoint to look like getPosts
     
+    @app.route("/gettopcleanups/", methods=["POST"])
+    def gettopcleanups():
+        coords = request.get_json()
+        "latitude"
+        "longitude"
+        find_user = users.query.filter_by(username="cleanup").first() #our 'User' that stores all cleanup events
+        if find_user == None:
+            return {"token": "failed", "reason": "User not found"} #should never happen 
+        else:
+            difference = []
+            indices = []
+            events = []
+            def getMin():
+                minimum = difference[0]
+                for num in difference:
+                    if num < minimum and difference.index(num) not in indices:
+                        minimum = num
+                indices.append(difference.index(minimum))
+            for event in find_user.events:
+                e = json.loads(event["location"])
+                first = abs(coords["latitude"] - float(e["coords"]["latitude"]))
+                second = abs(coords["longitude"] - float(e["coords"]["longitude"]))
+                difference.append((first + second) / 2)
+            for num in difference:
+                if difference.index(num) < 5:
+                    getMin()
+            for num in indices:
+                events.append(find_user.events[num])
+            return {"token": "Success", "events": events} 
+
     @app.route("/publishpost/", methods=["POST"])
     def publishpost():
         postDetails = request.get_json()
@@ -87,7 +121,6 @@ def main(testing, app, db, users):
                 events.append(event)
             events.append(postDetails)
             find_user.events = events
-            print(find_user.events)
             db.session.commit()
             return {"token": "Success", "reason": ""}
 
@@ -107,17 +140,8 @@ def main(testing, app, db, users):
                 events = find_user.events[-(page*10):(page*10-10)]
             else:
                 events = find_user.events[-(page*10):]
-            print(events)
-            return {"token": "Success", "events": events} #!Will info be readable?
+            return {"token": "Success", "events": events}
         
-    if testing:  
-        with app.app_context():
-            db.create_all()
-        app.run(port=6900, debug=True)
-        #app.run(debug=True)
-    else:
-        db.create_all()
-        return app
     @app.route("/classify-trash", methods=["POST"])
     def classify_trash():
         image = request.files['image']
@@ -131,4 +155,13 @@ def main(testing, app, db, users):
         if response.ok:
             return {"classification": response.json()}
         else:
-            return {"error": "Failed to classify image"}, 500
+            return {"error": "Failed to classify image"}
+        
+    if testing:  
+        with app.app_context():
+            db.create_all()
+        app.run(port=6900, debug=True)
+        #app.run(debug=True)
+    else:
+        db.create_all()
+        return app

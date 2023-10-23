@@ -54,12 +54,28 @@ interface getPostsInterface {
     "events": object[]
 }
 export async function getPosts(page:number): Promise<getPostsInterface>{
-    const response = await fetch(`${SERVER_URL}/getposts?page=${page}`, {
-        method: 'GET',
+    try{
+        const response = await fetch(`${SERVER_URL}/getposts?page=${page}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        return response.json() as any;
+    }
+    catch(error){
+        console.log("here", error);
+    }
+    return null as any;
+}
+export async function getTopCleanups(location:object): Promise<getPostsInterface>{
+    const response = await fetch(`${SERVER_URL}/gettopcleanups`, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-        }
-    })//data()
+        },
+        body: JSON.stringify(location)
+    })
     return response.json() as any;
 }
 export function publishcleanup(data:Object): Promise<publishpostInterface>{
@@ -68,7 +84,7 @@ export function publishcleanup(data:Object): Promise<publishpostInterface>{
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
-        //TODO: Get the body from text inputs 
+        body: JSON.stringify(data)
     })
     // the JSON body is taken from the response
     .then(res => res.json())

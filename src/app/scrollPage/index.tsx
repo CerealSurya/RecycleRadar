@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { View, Text, ScrollView, Image, FlatList, ListRenderItem } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { View, Text, Image, FlatList, ListRenderItem } from 'react-native';
 import { styles } from './styles';
 import { getPosts } from '../api';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface postType {
     postName: string,
@@ -17,7 +15,7 @@ interface postType {
 var events:postType[] = [];
 
 
-const Item = ({data}: {data: postType}) => { //post component
+export const Item = ({data}: {data: postType}) => { //post component
     return(
         <>
         <Text style={styles.postTitle}>{data.postName}</Text>
@@ -36,18 +34,25 @@ export default function scrollPage() {
         getThePosts();
     }
     const getThePosts = async () => {
-        const response = await getPosts(page);
-        if(response != null && response.token == "Success"){
-            const responseList:object[] = response.events;
-            for (let i = 0; i < responseList.length; i++)
+        try{
+            const response = await getPosts(page);
+            if(response != null && response.token == "Success"){
+                const responseList:object[] = response.events;
+                for (let i = 0; i < responseList.length; i++)
+                {
+                    events.push(responseList[i] as postType);
+                }
+            }
+            else
             {
-                events.push(responseList[i] as postType);
+                console.log(response);
             }
         }
-        else
+        catch(err)
         {
-            console.log(response);
+            console.log("caught", err);
         }
+        
     }
 
     if (events.length == 0)
