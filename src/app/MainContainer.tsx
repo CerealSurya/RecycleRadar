@@ -19,7 +19,7 @@ const socialPost = 'Post'
 const profile = 'Profile';
 const top = 'View Cleanups';
 const signIn = 'Login';
-let homee:string = 'Home';
+let homee: string = 'Home';
 
 const Tab = createBottomTabNavigator();
 const screenOptions = {
@@ -36,22 +36,21 @@ const screenOptions = {
     }
 }
 const CheckLogin = () => {
-    const [ID, setID] = React.useState<number | null>(); 
+    const [ID, setID] = React.useState<number | null>();
     React.useEffect(() => {
         (async () => {
 
             let IDD = await AsyncStorage.getItem('userId');
-            if (IDD != null)
-            {
+            if (IDD != null) {
                 setID(parseInt(IDD));
             }
         })();
     }, []);
-    if (typeof ID != 'number')
-    {
+    if (typeof ID != 'number') {
         homee = 'Login';
         console.log(ID);
-        return <Login />
+        // return <Login />
+        return <ProfileScreen />
     }
     homee = 'Home';
     return <ScrollPage />
@@ -77,22 +76,9 @@ export default function MainContainer() {
 
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
+                headerShown: false,
             })}
         >
-            {/* <Tab.Screen name={scroll} component={ScrollPage} options={{
-                tabBarShowLabel: true,
-                headerShown: false,
-                tabBarStyle: {
-                    position: "absolute",
-                    bottom: 0,
-                    right: 0,
-                    left: 0,
-                    elevation: 0,
-                    height: 80,
-                    backgroundColor: "#fff"
-                }
-            }}
-            /> */}
             <Tab.Screen name={homee} component={CheckLogin} />
             <Tab.Screen name={socialPost} component={CreatePost} />
             <Tab.Screen name={profile} children={ProfileScreen} />

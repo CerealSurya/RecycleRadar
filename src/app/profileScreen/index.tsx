@@ -1,6 +1,7 @@
-import * as React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { launchImageLibrary, MediaType } from 'react-native-image-picker';
 
 // Define your own ParamList if you have specific routes and parameters
 type RootStackParamList = {
@@ -11,7 +12,7 @@ type RootStackParamList = {
 type profileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'scrollPage'>;
 
 type Props = {
-    navigation: profileScreenNavigationProp;
+    navigation?: profileScreenNavigationProp;
 };
 
 // todo: 
@@ -21,68 +22,96 @@ type Props = {
 
 
 export default function profileScreen({ navigation }: Props) {
+    const [avatarSource, setAvatarSource] = useState<{ uri: string } | null>(null);
+    const backgroundImage = require('../../assets/images/homepage_background.jpg')
+
+    const selectPhotoTapped = async () => {
+        const options = {
+            mediaType: 'photo' as MediaType,
+        };
+
+        try {
+            const response = await launchImageLibrary(options);
+            if (response.didCancel) {
+                console.log('User cancelled photo picker');
+            } else if (response.errorCode) {
+                console.error('ImagePicker Error: ', response.errorMessage);
+            } else if (response.assets && response.assets[0] && response.assets[0].uri) {
+                const source = { uri: response.assets[0].uri };
+                setAvatarSource(source);
+            }
+        } catch (error) {
+            console.error('Error selecting photo: ', error);
+        }
+    };
+
     return (
-        <View style={styles.container}>
+        <ImageBackground source={backgroundImage} style={styles.container}>
             <Text
-                onPress={() => navigation.navigate('scrollPage')}
-                style={{ fontSize: 26, fontWeight: 'bold' }}>Profile Screen</Text>
-            {/* <View style={styles.header}>
-                <Image source={require('/Users/lucad/Downloads/coding/self_coding/RecycleRadar/src/images')} style={styles.icon} />
-                <Image source={require('./path_to_your_avatar..png')} style={styles.avatar} />
+                // onPress={() => navigation.navigate('scrollPage')}
+                style={styles.title}>Profile Screen</Text>
+            <TouchableOpacity onPress={selectPhotoTapped}>
+                <View style={styles.avatarContainer}>
+                    {avatarSource === null ? (
+                        <Text>Select a Photo</Text>
+                    ) : (
+                        <Image style={styles.avatar} source={avatarSource} />
+                    )}
+                </View>
+            </TouchableOpacity>
+            <View style={styles.follow}>
+                <Text>
+                    Followers: 0
+                </Text>
+                <Text style={{ marginLeft: 10 }}>
+                    Following: 0
+                </Text>
             </View>
-            <View style={styles.statsContainer}>
-                {["Recycled", "Energ Censored", "Polo", "Water Saved"].map((item, index) => (
-                    <View key={index} style={styles.statItem}>
-                        <Text>{item}</Text>
-                        <Text>Vote: 7.2.8</Text>
-                    </View>
-                ))}
+            <View>
+                <Text>Hours Contributed</Text>
             </View>
-            <View style={styles.footer}>
-                {/* Place footer icons here */}
-            {/* </View> * /} */}
-        </View >
+        </ImageBackground>
     );
+
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#e5e5e5',
-    },
-    header: {
-        flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#4CAF50',
+        marginTop: 0,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
     },
-    icon: {
-        width: 30,
-        height: 30,
-        position: 'absolute',
-        top: 10,
-        left: 10,
+    title: {
+        fontSize: 26,
+        fontWeight: 'bold',
+        paddingTop: 10,
+    },
+    avatarContainer: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        borderWidth: 1,
+        borderColor: '#9B9B9B',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 25,
     },
     avatar: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+
     },
-    statsContainer: {
-        flex: 3,
-        padding: 20,
-    },
-    statItem: {
+    follow: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 15,
-        borderBottomWidth: 1,
-        borderBottomColor: '#e0e0e0',
-    },
-    footer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         alignItems: 'center',
+        paddingTop: 10,
     },
-});
+    bar: {
+
+    },
+})
