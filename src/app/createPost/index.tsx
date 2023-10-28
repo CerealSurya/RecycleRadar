@@ -7,19 +7,7 @@ import { styles } from './styles'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
 
-// Define your own ParamList if you have specific routes and parameters
-type RootStackParamList = {
-    scrollPage: undefined;  // Replace 'undefined' with the type of parameters that 'scrollPage' expects, if any
-    // Add other routes here
-};
-
-type createPostNavigationProp = StackNavigationProp<RootStackParamList, 'scrollPage'>;
-
-type Props = {
-    navigation: createPostNavigationProp;
-};
-
-export default function CreatePost({ navigation }: Props) {
+export default function CreatePost() {
     const [photo, setPhoto] = React.useState(Object);
     const [postName, setPostName] = React.useState(String);
     const [postDescript, setDescript] = React.useState(String);
@@ -63,28 +51,6 @@ export default function CreatePost({ navigation }: Props) {
                 console.log('Form submitted successfully!');
             }
         }
-        // let formData = new FormData();
-
-        // const response = await fetch(photo.uri);
-        // const blob = await response.blob();
-        // formData.append('image', blob, 'photo.jpg');
-        
-        // fetch('http://localhost:5150', {
-        //     method: 'POST',
-        //     body: formData,
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data',
-        //     },
-        // })
-        // .then(response => response.json())
-        // .then(data => {
-        //     console.log('Classification result:', data.classification);
-        //     // Now post the image and classification result to your original endpoint
-        //     // ...
-        // })
-        // .catch(error => {
-        //     console.error('Error classifying image:', error);
-        // });
     }
 
 

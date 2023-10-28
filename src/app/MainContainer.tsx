@@ -35,26 +35,6 @@ const screenOptions = {
         backgroundColor: "#fff"
     }
 }
-const CheckLogin = () => {
-    const [ID, setID] = React.useState<number | null>();
-    React.useEffect(() => {
-        (async () => {
-
-            let IDD = await AsyncStorage.getItem('userId');
-            if (IDD != null) {
-                setID(parseInt(IDD));
-            }
-        })();
-    }, []);
-    if (typeof ID != 'number') {
-        homee = 'Login';
-        console.log(ID);
-        // return <Login />
-        return <ProfileScreen />
-    }
-    homee = 'Home';
-    return <ScrollPage />
-}
 export default function MainContainer() {
     return (
         <Tab.Navigator
