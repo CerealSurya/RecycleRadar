@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { launchImageLibrary, MediaType } from 'react-native-image-picker';
+import { fetchTotalHours } from '../api'; 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Define your own ParamList if you have specific routes and parameters
 type RootStackParamList = {
@@ -24,7 +26,22 @@ type Props = {
 export default function profileScreen({ navigation }: Props) {
     const [avatarSource, setAvatarSource] = useState<{ uri: string } | null>(null);
     const backgroundImage = require('../../assets/images/homepage_background.jpg')
+    const [totalHours, setTotalHours] = useState(0);
+    useEffect(() => {
+        const fetchHours = async () => {
+            try {
+                const username = await AsyncStorage.getItem('username');
+                if (username !== null) {
+                    const hours = await fetchTotalHours(username);
+                    setTotalHours(hours);
+                }
+            } catch (error) {
+                console.error('Error fetching total hours:', error);
+            }
+        };
 
+        fetchHours();
+    }, []);
     const selectPhotoTapped = async () => {
         const options = {
             mediaType: 'photo' as MediaType,
@@ -68,7 +85,7 @@ export default function profileScreen({ navigation }: Props) {
                 </Text>
             </View>
             <View>
-                <Text>Hours Contributed</Text>
+            <Text>Hours Contributed: {totalHours}</Text>
             </View>
         </ImageBackground>
     );

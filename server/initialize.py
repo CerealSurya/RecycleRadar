@@ -18,6 +18,7 @@ def create_app(testing=True):
         password = db.Column(db.String(100))
         userId = db.Column(db.Integer)
         events = db.Column(db.JSON)
+        hoursSpent = db.Column(db.Float, nullable=False)  # Storing hours as a float
 
         def __init__(self, username, email, password):
             self.username = username
@@ -25,7 +26,7 @@ def create_app(testing=True):
             self.password = password #comes encrypted
             self.userId = int(random.random() * 100000)
             self.events = [] #All user events are empty, unless they are admin users
-
+            self.hoursSpent = 0.0
         def validate(input, db_passw):
             return sha256_crypt.verify(input, db_passw) #veerifying password input is = to encrypted password in db
             #returns true or false

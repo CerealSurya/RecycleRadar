@@ -24,7 +24,25 @@ interface publishpostInterface {
     "token": String, 
     "reason": String
 }
-export function publishpost(name:String, description:String, photo:String, author:String, location:String, date:String): Promise<publishpostInterface>{
+// In your api.js (or equivalent file)
+export const fetchTotalHours = async (username: string) => {
+    try {
+        const response = await fetch(`${SERVER_URL}/totalhours?username=${username}`)
+        console.log('Response status:', response.status);  // Log the status code
+
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        const data = await response.json();
+
+        return data.totalHours;
+    } catch (error) {
+        console.error('There was a problem with the fetch:', error);
+    }
+};
+
+export function publishpost(name:String, description:String, photo:String, author:String, location:String, date:String, hoursSpent: String): Promise<publishpostInterface>{
     const body:Object = {
         "postName": name,
         "author": author,
@@ -32,6 +50,7 @@ export function publishpost(name:String, description:String, photo:String, autho
         "description": description,
         "location": location,
         "date": date,
+        "hoursSpent": hoursSpent,  // Add this line to include hoursSpent in the request body
         "id": 0 //ID doesn't matter gets overwritten on server
     }
     fetch(`${SERVER_URL}/publishpost`, {

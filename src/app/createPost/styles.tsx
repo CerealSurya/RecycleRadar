@@ -83,6 +83,20 @@ export const styles = StyleSheet.create({
     left: 30,
     width: 340,
     height: 275,
-  }
+  },
+  hoursInput: {
+    position: 'relative',
+    top: 30,
+    left: 30,
+    fontSize: 24,
+    borderWidth: 0,
+    height: 80,
+    width: 320,
+    margin: 2,
+    borderBottomWidth: 2,
+    paddingTop: 5,
+    paddingBottom: 2,
+    paddingRight:20,
+}
 });
 

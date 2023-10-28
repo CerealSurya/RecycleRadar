@@ -14,6 +14,8 @@ export default function CreatePost() {
     const [location, setLocation] = React.useState(String);
     const date: String = (new Date().getDate()).toString()
     const [author, setAuthor] = React.useState(String);
+    const [hoursSpent, setHoursSpent] = React.useState('');
+
     React.useEffect(() => {
         (async () => {
             let authorr = await AsyncStorage.getItem('username');
@@ -44,8 +46,8 @@ export default function CreatePost() {
     }
 
     const createPost = async () => {
-        if (postName != "" && postDescript != "") {
-            const response = await publishpost(postName, postDescript, photo.uri, author, location, date);
+        if (postName != "" && postDescript != "" && hoursSpent != "") {
+            const response = await publishpost(postName, postDescript, photo.uri, author, location, date, hoursSpent);
             if (response != null && response.token == "Success") {
                 //TODO: redirect to home page, or display notification saying post went through
                 console.log('Form submitted successfully!');
@@ -67,6 +69,12 @@ export default function CreatePost() {
                 placeholder="Description"
                 onChangeText={setDescript}
             />
+            <TextInput
+                style={styles.hoursInput}
+                placeholder="Hours Spent"
+                keyboardType="numeric"  // Ensure that only numbers can be input
+                onChangeText={setHoursSpent}
+/>
             <Pressable style={styles.firstButton} onPress={handleChoosePhoto}>
                 <Text style={styles.text}>Select Photo</Text>
             </Pressable>

@@ -4,6 +4,7 @@ from passlib.hash import sha256_crypt
 import traceback
 import json
 import requests
+from flask import request, jsonify, current_app
 
 def main(testing, app, db, users):
     #gunicorn -w 4 "server.src.router:main()"
@@ -111,18 +112,34 @@ def main(testing, app, db, users):
         "location"
         "date" #date that client side generates
         "id" #server overrides it
-        find_user = users.query.filter_by(username="posts").first() #our 'User' that stores all posts
+        find_user = users.query.filter_by(username=postDetails["author"]).first()
         if find_user == None:
             return {"token": "failed", "reason": "User not found"} #should never happen 
         else:
+            # Increment the user's total hoursSpent
+            find_user.hoursSpent += float(postDetails["hoursSpent"])  # Assuming hoursSpent is sent as a string
+
+            # Update the events
             postDetails["id"] = str(len(find_user.events))
-            events = []
-            for event in find_user.events:
-                events.append(event)
+            events = find_user.events[:]
             events.append(postDetails)
             find_user.events = events
+
             db.session.commit()
             return {"token": "Success", "reason": ""}
+    @app.route("/totalhours", methods=["GET"])
+    def total_hours():
+        username = request.args.get('username')  # Extract the 'username' query parameter from the URL
+
+        if not username:
+            return {"error": "Username parameter is required"}, 400  # Bad Request
+
+        user = users.query.filter_by(username=username).first()
+        if not user:
+            return {"error": "User not found"}, 404  # Not Found
+        response_data = {"totalHours": total_hours}
+
+        return {"totalHours": user.hoursSpent,"token": "Success"}
 
     @app.route("/getposts/", methods=["GET"])
     def getposts():
