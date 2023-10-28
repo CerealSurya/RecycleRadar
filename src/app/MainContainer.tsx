@@ -79,21 +79,6 @@ export default function MainContainer() {
                 headerShown: false,
             })}
         >
-            <Tab.Screen name={homee} component={CheckLogin} />
-            {/* <Tab.Screen name={scroll} component={ScrollPage} options={{
-                tabBarShowLabel: true,
-                headerShown: false,
-                tabBarStyle: {
-                    position: "absolute",
-                    bottom: 0,
-                    right: 0,
-                    left: 0,
-                    elevation: 0,
-                    height: 80,
-                    backgroundColor: "#fff"
-                }
-            }}
-            /> */}
             <Tab.Screen name={homee} component={ScrollPage} />
             <Tab.Screen name={socialPost} component={CreatePost} />
             <Tab.Screen name={profile} children={ProfileScreen} />
