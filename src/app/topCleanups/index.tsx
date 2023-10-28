@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, ScrollView, Image } from 'react-native';
+import { View, Text, ScrollView, Image, FlatList, ListRenderItem } from 'react-native';
 import { styles } from './styles'; 
 import * as Location from 'expo-location';
 import { getTopCleanups } from '../api';
@@ -13,9 +13,7 @@ interface cleanupType {
     date: string,
     materials: string
 }
-let counter:number = 0;
-//var events:cleanupType[] = [];
-export const Item = ({data}: {data: cleanupType}) => { //post component
+const Item = ({data}: {data: cleanupType}) => { //post component
     return(
         <>
         <Text style={styles.postTitle}>{data.eventName}</Text>
@@ -26,63 +24,65 @@ export const Item = ({data}: {data: cleanupType}) => { //post component
         </>
     );
 }
-
+var events:cleanupType[] = [];
 export default function topCleanups() {
-    const [location, setLocation] = React.useState(String);
-    const [event1, setEvent1] = React.useState<cleanupType>(Object);
-    const [event2, setEvent2] = React.useState<cleanupType>(Object);
-    const [event3, setEvent3] = React.useState<cleanupType>(Object);
-    const [event4, setEvent4] = React.useState<cleanupType>(Object);
-    const [event5, setEvent5] = React.useState<cleanupType>(Object);
-    const getCleanups = async () => {
-        const loc = JSON.parse(location);
-        const response = await getTopCleanups(loc);
-        if (response != null && response.token == "Success")
-        {
-            for (let i = 0; i < response.events.length; i ++)
+    var loc:Object = {"altitude":0,"heading":0,"altitudeAccuracy":100,"latitude":0,"speed":0,"longitude":0,"accuracy":100};
+    const [location, setLocation] = React.useState<any>(loc);
+    const renderItem: ListRenderItem<cleanupType> = ( {item} ) => (<Item data={item}/>);
+    const getCleanups = async (loc=location, replace:boolean = false) => {
+        var length:number = 0;
+        var counter:number = 0;
+        if(replace)
+        {length = events.length;}
+        try{
+            const response = await getTopCleanups(loc);
+            if (response != null && response.token == "Success")
             {
-                if(i == 0)
-                {setEvent1(response.events[i] as cleanupType);}
-                if(i == 1)
-                {setEvent2(response.events[i] as cleanupType);}
-                if(i == 2)
-                {setEvent3(response.events[i] as cleanupType);}
-                if(i == 3)
-                {setEvent4(response.events[i] as cleanupType);}
-                if(i == 4)
-                {setEvent5(response.events[i] as cleanupType);}
+                for (let i = 0; i < response.events.length; i ++)
+                {
+                    if (replace &&(length != 0 && counter < length))
+                    {
+                        events[counter] = response.events[i] as cleanupType;
+                        counter++;
+                    }
+                    else{events.push(response.events[i] as cleanupType);}
+                }
+            }
+            else
+            {
+                console.log(response);
             }
         }
-        else
-        {
-            console.log(response);
+        catch(err){
+            console.log("caught err", location, err);
         }
     }
     React.useEffect(() => {
-        (async () => {            
+        (async () => {         
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 setLocation('Permission to access location was denied');
                 return;
             }
             let getLocation = await Location.getCurrentPositionAsync({});
-            setLocation(JSON.stringify(getLocation["coords"]));
-            
+            setLocation({...getLocation["coords"]});
         })();
     }, []);
-    if (location != "" && counter < 3)
-    {
-        console.log(event1);
-        getCleanups();
-        counter++;
-    }
+    React.useEffect(() => {
+        (async () => {
+            await getCleanups(location, true);
+        })();
+    }, [location]);
     return (
-        <ScrollView>
-            <Item data={event1}/>
-            {/* {typeof events[0] != null ?<Item data={events[1]}/>: null} 
-            {typeof events[0] != null ?<Item data={events[2]}/>: null} 
-            {typeof events[0] != null ?<Item data={events[3]}/>: null} 
-            {typeof events[0] != null ?<Item data={events[4]}/>: null}  */}
-        </ScrollView>
-    );
-}
+        <View style={styles.container}>
+            {events && (
+            <FlatList
+                data={events}
+                renderItem={renderItem}
+                keyExtractor={(item: cleanupType) => item.description}
+                // onEndReachedThreshold={0.02}
+                // onEndReached={getCleanups}
+            />
+            )}
+       </View>
+)}
