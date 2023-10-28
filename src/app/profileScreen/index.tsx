@@ -1,29 +1,47 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Image, TouchableOpacity, ImageBackground, ListRenderItem, FlatList } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { launchImageLibrary, MediaType } from 'react-native-image-picker';
-
-// Define your own ParamList if you have specific routes and parameters
-type RootStackParamList = {
-    scrollPage: undefined;  // Replace 'undefined' with the type of parameters that 'scrollPage' expects, if any
-    // Add other routes here
-};
-
-type profileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'scrollPage'>;
-
-type Props = {
-    navigation?: profileScreenNavigationProp;
-};
+import { styles } from './styles';
 
 // todo: 
 // 1) how many hours you've spent on the app
 // 2) how many meetupds you've contributed to
-// 3) make different tiers depending on this make scale later
+// 3) make different tiers depending on this make scale later // xp scale --> based on the amount of contributions
+// 4) make followers and following work
+
+interface postType {
+    postName: string,
+    author: string,
+    picture: string | null,
+    description: string,
+    location: string,
+    date: string,
+    id: string
+}
+var events: postType[] = [];
+
+const Item = ({ data }: { data: postType }) => {
+    return (
+        <>
+            {data.picture && <Image source={{ uri: data.picture }} style={styles.picture} />}
+        </>
+    );
+}
 
 
-export default function profileScreen({ navigation }: Props) {
+export default function profileScreen() {
     const [avatarSource, setAvatarSource] = useState<{ uri: string } | null>(null);
-    const backgroundImage = require('../../assets/images/homepage_background.jpg')
+    const backgroundImage = require('../../assets/images/homepage_background.jpg');
+    const renderItem: ListRenderItem<postType> = ({ item }) => (<Item data={item} />);
+
+    const [username, setUserName] = useState<String | null>("");
+    React.useEffect(() => {
+        (async () => {
+            const user = await AsyncStorage.getItem('username');
+            setUserName(user);
+        })();
+    }, []);
 
     const selectPhotoTapped = async () => {
         const options = {
@@ -48,7 +66,6 @@ export default function profileScreen({ navigation }: Props) {
     return (
         <ImageBackground source={backgroundImage} style={styles.container}>
             <Text
-                // onPress={() => navigation.navigate('scrollPage')}
                 style={styles.title}>Profile Screen</Text>
             <TouchableOpacity onPress={selectPhotoTapped}>
                 <View style={styles.avatarContainer}>
@@ -59,6 +76,7 @@ export default function profileScreen({ navigation }: Props) {
                     )}
                 </View>
             </TouchableOpacity>
+            <Text>{username}</Text>
             <View style={styles.follow}>
                 <Text>
                     Followers: 0
@@ -70,48 +88,18 @@ export default function profileScreen({ navigation }: Props) {
             <View>
                 <Text>Hours Contributed</Text>
             </View>
+            <View>
+                <Text style={styles.title}>♻️Recent Posts♻️</Text>
+                {events && (
+                    <FlatList
+                        data={events}
+                        renderItem={renderItem}
+                        keyExtractor={(item: postType) => item.id}
+                    />
+                )}
+            </View>
         </ImageBackground>
     );
 
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#e5e5e5',
-        alignItems: 'center',
-        marginTop: 0,
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-    },
-    title: {
-        fontSize: 26,
-        fontWeight: 'bold',
-        paddingTop: 10,
-    },
-    avatarContainer: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        borderWidth: 1,
-        borderColor: '#9B9B9B',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 25,
-    },
-    avatar: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-
-    },
-    follow: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingTop: 10,
-    },
-    bar: {
-
-    },
-})
