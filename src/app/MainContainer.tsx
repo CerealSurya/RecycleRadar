@@ -65,10 +65,10 @@ export default function MainContainer() {
 
                     if (route.name === homee) {
                         iconName = focused ? 'home' : 'home-outline';
-                    } else if (route.name === camera) {
+                    } else if (route.name === socialPost) {
                         iconName = focused ? 'camera' : 'camera-outline';
                     } else if (route.name === post) {
-                        iconName = focused ? 'create' : 'create-outline';
+                        iconName = focused ? 'leaf' : 'leaf-outline';
                     } else if (route.name === profile) {
                         iconName = focused ? 'person' : 'person-outline';
                     } else if (route.name === top) {
@@ -93,7 +93,7 @@ export default function MainContainer() {
                 }
             }}
             /> */}
-            <Tab.Screen name={homee} component={CheckLogin} />
+            <Tab.Screen name={homee} component={ScrollPage} /> 
             <Tab.Screen name={socialPost} component={CreatePost} />
             <Tab.Screen name={profile} children={ProfileScreen} />
             <Tab.Screen name={top} children={TopCleanups} />
