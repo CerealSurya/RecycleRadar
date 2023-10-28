@@ -31,34 +31,33 @@ export default function scrollPage() {
     const renderItem: ListRenderItem<postType> = ( {item} ) => (<Item data={item}/>);
     const fetchData = () => {
         setPage(page + 1);
-        getThePosts();
     }
-    const getThePosts = async () => {
-        try{
-            const response = await getPosts(page);
-            if(response != null && response.token == "Success"){
-                const responseList:object[] = response.events;
-                for (let i = 0; i < responseList.length; i++)
+    React.useEffect(() => {
+        (async () => {
+            try{
+                const response = await getPosts(page);
+                if(response != null && response.token == "Success"){
+                    const responseList:object[] = response.events;
+                    for (let i = 0; i < responseList.length; i++)
+                    {
+                        events.push(responseList[i] as postType);
+                    }
+                }
+                else
                 {
-                    events.push(responseList[i] as postType);
+                    console.log(response);
+                }
+                for (let i = 0; i < events.length; i++)
+                {
+                    events[i].id = `${i}`;
                 }
             }
-            else
+            catch(err)
             {
-                console.log(response);
+                console.log("caught", err);
             }
-        }
-        catch(err)
-        {
-            console.log("caught", err);
-        }
-        
-    }
-
-    if (events.length == 0)
-    {
-        getThePosts();
-    }
+        })();
+    }, [page]);
     return (
         <View style={styles.container}>
             {events && (

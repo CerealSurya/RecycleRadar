@@ -18,7 +18,8 @@ export default function login(){
                 await AsyncStorage.setItem('userId', response.config.toString());
                 await AsyncStorage.setItem('username', response.username.toString());
                 console.log('Form submitted successfully!');
-                navigation.push("/scrollPage");
+                //navigation.push("/scrollPage");
+                navigation.back();
             }
             else
             {
