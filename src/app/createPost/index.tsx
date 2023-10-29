@@ -19,8 +19,8 @@ export default function CreatePost() {
     React.useEffect(() => {
         (async () => {
             let authorr = await AsyncStorage.getItem('username');
-            if (authorr != null){setAuthor(authorr);}
-            
+            if (authorr != null) { setAuthor(authorr); }
+
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 setLocation('Permission to access location was denied');
@@ -84,6 +84,7 @@ export default function CreatePost() {
             <Pressable style={styles.button} onPress={createPost}>
                 <Text style={styles.text}>Publish Post</Text>
             </Pressable>
+
         </View>
     );
 }
