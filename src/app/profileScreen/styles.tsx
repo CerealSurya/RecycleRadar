@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
     container: {
         fontWeight: 'bold',
         flex: 1,
-        backgroundColor: '#e5e5e5',
+        backgroundColor: '#e8f5e9',
         alignItems: 'center',
         marginTop: 0,
         flexDirection: 'column',
@@ -13,13 +13,13 @@ export const styles = StyleSheet.create({
     },
     firstList: {
         height:250,
-        paddingTop:50,
+        paddingTop:10,
     },
     secondList: {
         position: 'relative',
-        bottom:20,
+        bottom:50,
         left: 5,
-        paddingTop: 50,
+        paddingTop: 40,
         alignContent: 'flex-start'
     },
     title: {
@@ -27,30 +27,31 @@ export const styles = StyleSheet.create({
         paddingTop: 10,
     },
     subtitle: {
-        alignSelf:'flex-start',
-        alignContent:'flex-end',
+        alignSelf:'center',
+        alignContent:'center',
         fontSize: 18,
         paddingTop: 5,
         paddingLeft: 200,
         marginTop: 20,
-        bottom: 60,
+        bottom: 120,
     },
     avatarContainer: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
+        width: 200,
+        height: 200,
+        borderRadius: 100,
         borderWidth: 1,
         borderColor: '#9B9B9B',
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'flex-start',
-        marginTop: 20,
-        top: 60
+        marginTop: 5,
+        top: 30,
+        right:20
     },
     avatar: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
+        width: 200,
+        height: 200,
+        borderRadius: 100,
 
     },
     follow: {

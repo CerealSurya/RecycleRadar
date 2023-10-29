@@ -1,10 +1,11 @@
-from flask import Flask, request
+from flask import Flask, request, url_for, render_template
 import os
 from passlib.hash import sha256_crypt
 import traceback
 import json
 import requests
 from flask import request, jsonify, current_app
+from werkzeug.utils import secure_filename
 
 def main(testing, app, db, users):
     #gunicorn -w 4 "server.src.router:main()"
@@ -188,6 +189,32 @@ def main(testing, app, db, users):
                 events = baseEvents[-(page*10):]
 
             return {"token": "Success", "events": events}
+        
+    @app.route("/setavatar/", methods=["POST"])
+    def setavatar():
+        usern = str(request.args.get("usern"))
+        f = request.form.get("image")
+        bytesOfImage = request.get_data()
+        find_user = users.query.filter_by(username=usern).first() #our 'User' that stores all cleanup events
+        if find_user == None:
+            return {"token": "failed", "reason": "User not found"} #should never happen 
+        else:
+            with open(f'/static/{usern}.jpeg', 'wb') as out:
+                out.write(bytesOfImage)
+            return {"token": "Success", "url": ""}
+    @app.route("/getuseravatar/<username>", methods=["GET"])
+    def getuseravatar(username):
+        find_user = users.query.filter_by(username=username).first() #our 'User' that stores all cleanup events
+        url = url_for('static', filename=f'{username}.jpeg')
+        #try:
+        if find_user == None:
+            return {"token": "failed", "reason": "User not found"} #should never happen 
+        else:
+            print(username)
+            return render_template("index.html", url=url)
+        # except():
+        #     return {"token": "failed", "reason": ""}
+        
     @app.route("/getposts/", methods=["GET"])
     def getposts():
         page = int(request.args.get("page"))

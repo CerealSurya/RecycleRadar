@@ -1,10 +1,22 @@
-const SERVER_URL = "http://10.0.2.2:6900";
+import * as FS from 'expo-file-system';
+
+const SERVER_URL = "http://10.0.2.2:6900"; 
 interface loginInterface {
     "token": string, 
     "config": number,
     "username": string
 }//`${SERVER_URL}/login?usern=${usern}&passw=${passw}`
-
+interface pic {
+    "assetId": null, 
+    "base64": null, 
+    "duration": null, 
+    "exif": null, 
+    "height": 720, 
+    "rotation": null, 
+    "type": string, 
+    "uri": string, 
+    "width": Number
+}
 export async function loginFunc(usern:String, passw:String): Promise<loginInterface>{
     console.log(`${SERVER_URL}/login?usern=${usern}&passw=${passw}`);
     const response = await fetch(`${SERVER_URL}/login?usern=${usern}&passw=${passw}`, {
@@ -72,6 +84,13 @@ interface getPostsInterface {
     "token": string, 
     "events": object[]
 }
+interface defaultReturn {
+    "token": string
+}
+interface avatarReturn {
+    "token": string,
+    "url": string
+}
 export async function getPosts(page:number): Promise<getPostsInterface>{
     try{
         const response = await fetch(`${SERVER_URL}/getposts?page=${page}`, {
@@ -111,6 +130,32 @@ export async function getUserCleanups(page:number, username:string): Promise<get
             }
         })
         return response.json() as any;
+    }
+    catch(error){
+        console.log("here", error);
+    }
+    return null as any;
+}
+export async function setUserAvatar(username:string, file:FormData, ct:string, picture:pic): Promise<defaultReturn>{
+    try{
+        let response = await FS.uploadAsync(`${SERVER_URL}/setavatar?usern=${username}`, picture.uri, {
+            headers: {
+              "content-type": ct,
+            },
+            httpMethod: "POST",
+            uploadType: FS.FileSystemUploadType.BINARY_CONTENT,
+        });
+        return response as any;
+    }
+    catch(error){
+        console.log("here", error);
+    }
+    return null as any;
+}
+
+export async function getUserAvatar(username:string): Promise<string>{
+    try{
+        return `${SERVER_URL}/static/${username}.jpeg`;
     }
     catch(error){
         console.log("here", error);
