@@ -77,11 +77,7 @@ export default function CreatePost() {
                 keyboardType="numeric"  // Ensure that only numbers can be input
                 onChangeText={setHoursSpent}
             />
-<<<<<<< HEAD
-            <Pressable style={styles.firstButton} onPress={handleChoosePhoto}>
-=======
             <Pressable style={styles.button} onPress={handleChoosePhoto}>
->>>>>>> 24f6fb40043bfc41dbcbe1dd1bbb0eea68be4368
                 <Text style={styles.text}>Select Photo</Text>
             </Pressable>
             {photo && <Image source={{ uri: photo.uri }} style={styles.photo} />}

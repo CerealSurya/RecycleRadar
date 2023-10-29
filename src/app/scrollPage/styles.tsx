@@ -2,20 +2,43 @@ import { StyleSheet } from 'react-native';
 
 
 export const styles = StyleSheet.create({
+  background: {
+    backgroundColor: '#B4CEB3',
+  },
   container: {
-    flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     alignSelf: 'center',
   },
+  card: {
+    borderWidth: 5,
+    margin: 10,
+    backgroundColor: '#448547',
+    borderRadius: 20,
+  },
+  icons: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    right: -20,
+  },
+  button: {
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 5,
+    width: 120,
+    height: 50,
+    right: 20,
+    borderRadius: 0,
+  },
   postTitle: {
     position: 'relative',
+    alignSelf: 'center',
+    textAlign: 'center',
     paddingTop: 10,
     paddingLeft: 10,
     fontSize: 24,
     fontWeight: 'bold',
-    backgroundColor: 'black',
-    color: 'white',
+    color: '#ffffff',
   },
   postDescrip: {
     position: 'relative',
@@ -23,8 +46,7 @@ export const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingBottom: 20,
     fontSize: 16,
-    backgroundColor: 'black',
-    color: 'white',
+    color: '#ffffff',
   },
   postAuthor: {
     position: 'relative',
@@ -32,16 +54,15 @@ export const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingBottom: 20,
     fontSize: 18,
-    backgroundColor: 'black',
-    color: 'white',
+    color: '#ffffff',
   },
   postPicture: {
     position: 'relative',
-    left: 30,
+    alignSelf: 'center',
     paddingLeft: 10,
-    width: 340,
+    width: 341,
     height: 275,
-    backgroundColor: 'black',
+    borderRadius: 10,
   },
   title: {
     alignSelf: 'flex-start',
@@ -118,6 +139,7 @@ export const styles = StyleSheet.create({
     left: 30,
     width: 340,
     height: 275,
+    borderRadius: 30,
   }
 });
 

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { StyleSheet } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Import your screens
 import ScrollPage from './scrollPage/index';
