@@ -9,11 +9,31 @@ export const styles = StyleSheet.create({
         marginTop: 0,
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        fontFamily: 'RobotoSlab-Medium'
+        // fontFamily: 'RobotoSlab-Medium'
+    },
+    firstList: {
+        height:250,
+        paddingTop:50,
+    },
+    secondList: {
+        position: 'relative',
+        bottom:20,
+        left: 5,
+        paddingTop: 50,
+        alignContent: 'flex-start'
     },
     title: {
         fontSize: 26,
         paddingTop: 10,
+    },
+    subtitle: {
+        alignSelf:'flex-start',
+        alignContent:'flex-end',
+        fontSize: 18,
+        paddingTop: 5,
+        paddingLeft: 200,
+        marginTop: 20,
+        bottom: 60,
     },
     avatarContainer: {
         width: 100,
@@ -23,7 +43,9 @@ export const styles = StyleSheet.create({
         borderColor: '#9B9B9B',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 25,
+        alignSelf: 'flex-start',
+        marginTop: 20,
+        top: 60
     },
     avatar: {
         width: 100,
@@ -56,6 +78,20 @@ export const styles = StyleSheet.create({
         backgroundColor: '#fffff'
     },
     picture: {
-
+        position: 'relative',
+        left: 5,
+        paddingHorizontal: 8,
+        width: 200,
+        height: 150,
+        backgroundColor: 'black',
+        borderRadius:20
+    },
+    postText: {
+        position: 'relative',
+        alignSelf: 'center',
+        bottom: 230,
+        right: 180,
+        fontSize: 20,
+        paddingTop: 10,
     }
 })
