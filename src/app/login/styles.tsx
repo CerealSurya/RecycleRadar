@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -10,6 +9,7 @@ export const styles = StyleSheet.create({
   },
   textTogether: {
     alignItems: 'center',
+    bottom: 80,
   },
   title: {
     fontSize: 34,
@@ -46,6 +46,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 15,
+    paddingHorizontal: 50,
     borderRadius: 10,
     backgroundColor: '#388e3c',  // Green button color
     marginBottom: 20,
@@ -64,18 +65,21 @@ export const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-
+    alignSelf: 'center',
+    top: -70,
+    width: 500,
+    height: 400,
   },
-
+  // textTogether: {
+  //   bottom: 10,
+  // },
   // container: {
   //   flex: 1,
   //   justifyContent: 'center',
   //   alignItems: 'center',
   //   backgroundColor: '#92B4A7',
   // },
-  // textTogether: {
-  //   bottom: 10,
-  // },
+
   // title: {
   //   alignSelf: 'flex-start',
   //   top: -40,
