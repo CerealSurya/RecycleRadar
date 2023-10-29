@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#92B4A7',
   },
   textTogether: {
-    bottom: -80,
+    bottom: 10,
   },
   title: {
     alignSelf: 'flex-start',
@@ -124,7 +124,12 @@ export const styles = StyleSheet.create({
   },
   holdForget: {
     right: -85,
-    bottom: -140,
+    bottom: -70,
   },
+  image: {
+    paddingBottom: 0,
+    flex: 1,
+    width: '100%',
+  }
 });
 

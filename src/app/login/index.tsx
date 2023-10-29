@@ -1,9 +1,10 @@
-import { Text, View, TextInput, Button, Pressable } from 'react-native';
+import { Text, View, TextInput, Pressable } from 'react-native';
 import React from 'react';
 import { loginFunc } from '../api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from "./styles"
 import { Link, useRouter } from "expo-router";
+import { Image } from 'expo-image';
 
 export default function login() {
     const navigation = useRouter();
@@ -35,6 +36,7 @@ export default function login() {
 
     return (
         <View style={styles.container}>
+            <Image source={require('../../assets/images/tree.png')} style={styles.image} />
             <View style={styles.textTogether}>
                 <Text style={styles.title}>Welcome Back!</Text>
                 <Text style={styles.subtitle}>Enter Username and Password Below</Text>
@@ -65,7 +67,6 @@ export default function login() {
                     <Pressable style={styles.facebook}><Text style={styles.text}>Facebook</Text></Pressable>
                 </View> */}
             </View>
-
         </View >
     );
 };

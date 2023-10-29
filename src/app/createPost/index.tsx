@@ -19,8 +19,8 @@ export default function CreatePost() {
     React.useEffect(() => {
         (async () => {
             let authorr = await AsyncStorage.getItem('username');
-            if (authorr != null){setAuthor(authorr);}
-            
+            if (authorr != null) { setAuthor(authorr); }
+
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 setLocation('Permission to access location was denied');
@@ -57,8 +57,8 @@ export default function CreatePost() {
 
 
     return (
-        <View style= {styles.container}>
-            <Text style= {styles.title}>Create Post</Text>
+        <View style={styles.container}>
+            <Text style={styles.title}>Create Post</Text>
             <TextInput
                 style={styles.titleInput}
                 placeholder="Title"
@@ -74,7 +74,7 @@ export default function CreatePost() {
                 placeholder="Hours Spent"
                 keyboardType="numeric"  // Ensure that only numbers can be input
                 onChangeText={setHoursSpent}
-/>
+            />
             <Pressable style={styles.firstButton} onPress={handleChoosePhoto}>
                 <Text style={styles.text}>Select Photo</Text>
             </Pressable>
@@ -82,6 +82,7 @@ export default function CreatePost() {
             <Pressable style={styles.secondButton} onPress={createPost}>
                 <Text style={styles.text}>Publish Post</Text>
             </Pressable>
+
         </View>
     );
-    }
+}
