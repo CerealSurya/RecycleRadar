@@ -16,6 +16,20 @@ export const styles = StyleSheet.create({
     backgroundColor: '#448547',
     borderRadius: 20,
   },
+  avatar: {
+    // flex: 1,
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+  },
+  time: {
+    position: 'relative',
+    paddingTop: 2,
+    paddingLeft: 10,
+    paddingBottom: 20,
+    fontSize: 14,
+    color: '#ffffff',
+  },
   icons: {
     flexDirection: 'row',
     alignSelf: 'center',
