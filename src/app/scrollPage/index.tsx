@@ -45,7 +45,7 @@ export const Item = ({ data }: { data: postType }) => { //post component
     const [pressedStates, setPressedStates] = useState<{ [key: string]: boolean }>({ heart: false, chatbubbles: false, share: false });
     let avatar:any;
     React.useEffect(() => {
-        AsyncStorage.getItem("username").then(response =>{
+        AsyncStorage.getItem("username").then(response =>{ //!THERE is an error here
             if (response != null){
                 getUserAvatar(response).then(resp => {avatar.uri=resp;console.log(resp);})
             }
