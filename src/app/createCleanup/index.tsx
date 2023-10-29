@@ -65,7 +65,8 @@ export default function createCleanup({ navigation }: Props) {
                 date: date,
                 materials: materials
             }
-            const response = await publishcleanup(data);
+            console.log(location);
+            const response = await publishcleanup(data, photo);
             if (response != null && response.token == "Success") {
                 //TODO: redirect to home page, or display notification saying post went through
                 console.log('Form submitted successfully!');

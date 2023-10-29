@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, Image, FlatList, ListRenderItem, Pressable } from 'react-native';
 import { styles } from './styles';
-import { getPosts } from '../api';
+import { getPosts, getUserAvatar } from '../api';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface postType {
     postName: string,
@@ -42,7 +43,14 @@ var events: postType[] = [];
 
 export const Item = ({ data }: { data: postType }) => { //post component
     const [pressedStates, setPressedStates] = useState<{ [key: string]: boolean }>({ heart: false, chatbubbles: false, share: false });
-    const avatar = { uri: 'https://www.nj.com/resizer/zovGSasCaR41h_yUGYHXbVTQW2A=/1280x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg' };
+    let avatar:any;
+    React.useEffect(() => {
+        AsyncStorage.getItem("username").then(response =>{
+            if (response != null){
+                getUserAvatar(response).then(resp => {avatar.uri=resp;console.log(resp);})
+            }
+        })
+    }, []);
 
     const handlePress = (iconType: string) => {
         setPressedStates(prevStates => ({
@@ -55,8 +63,8 @@ export const Item = ({ data }: { data: postType }) => { //post component
     return (
         <View style={styles.card}>
             <View style={{ flexDirection: 'row', top: 7, right: -10 }}>
-                <Image source={avatar} style={styles.avatar} />
-                <Text style={styles.postAuthor}> - {data.author + '\n' + data.date}</Text>
+                {avatar && <Image source={{uri: avatar}} style={styles.avatar} />}
+                <Text style={styles.postAuthor}>{data.author + '\n' + data.date}</Text>
             </View>
             <Text style={styles.postTitle}>{data.postName}</Text>
             {data.picture && <Image source={{ uri: data.picture }} style={styles.postPicture} />}
@@ -110,6 +118,7 @@ export default function scrollPage() {
     return (
         <View style={styles.background}>
             <View style={styles.container}>
+                <React.Suspense>
                 {events && (
                     <FlatList
                         data={events}
@@ -119,6 +128,7 @@ export default function scrollPage() {
                         onEndReached={fetchData}
                     />
                 )}
+                </React.Suspense>
             </View>
         </View>
     );

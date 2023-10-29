@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { View, Text, ScrollView, Image, FlatList, ListRenderItem } from 'react-native';
+import { View, Text, ScrollView, Image, FlatList, ListRenderItem, Pressable } from 'react-native';
 import { styles } from './styles';
 import * as Location from 'expo-location';
-import { getTopCleanups } from '../api';
+import { getTopCleanups, getCleanupPic } from '../api';
 
 interface cleanupType {
     eventName: string,
@@ -50,6 +50,7 @@ export default function topCleanups() {
         var counter: number = 0;
         if (replace) { length = events.length; }
         try {
+            console.log("here");
             const response = await getTopCleanups(loc);
             if (response != null && response.token == "Success") {
                 for (let i = 0; i < response.events.length; i++) {
@@ -57,7 +58,14 @@ export default function topCleanups() {
                         events[counter] = response.events[i] as cleanupType;
                         counter++;
                     }
-                    else { events.push(response.events[i] as cleanupType); }
+                    else {
+                        var daEvent:cleanupType = response.events[i] as cleanupType;
+                        const rep = await getCleanupPic(daEvent.eventName);
+                        console.log(rep);
+                        daEvent.picture = rep;
+
+                        events.push(response.events[i] as cleanupType);
+                    }
                 }
             }
             else {
@@ -84,18 +92,21 @@ export default function topCleanups() {
             await getCleanups(location, true);
         })();
     }, [location]);
+
     return (
         <View style={styles.background}>
             <View style={styles.container}>
-                {events && (
-                    <FlatList
-                        data={events}
-                        renderItem={renderItem}
-                        keyExtractor={(item: cleanupType) => item.description}
-                    // onEndReachedThreshold={0.02}
-                    // onEndReached={getCleanups}
-                    />
-                )}
+                <React.Suspense>
+                    {events && (
+                        <FlatList
+                            data={events}
+                            renderItem={renderItem}
+                            keyExtractor={(item: cleanupType) => item.description}
+                        // onEndReachedThreshold={0.02}
+                        // onEndReached={getCleanups}
+                        />
+                    )}
+                </React.Suspense>
             </View>
         </View>
     )

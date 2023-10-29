@@ -199,9 +199,26 @@ def main(testing, app, db, users):
         if find_user == None:
             return {"token": "failed", "reason": "User not found"} #should never happen 
         else:
-            with open(f'/static/{usern}.jpeg', 'wb') as out:
+            with open(f'./static/{usern}.jpeg', 'wb') as out:
                 out.write(bytesOfImage)
             return {"token": "Success", "url": ""}
+        
+    @app.route("/uploadcleanuppicture/", methods=["POST"])
+    def uploadcleanuppicture():
+        title = str(request.args.get("title"))
+        bytesOfImage = request.get_data()
+        with open(f'./static/{title}.jpeg', 'wb') as out:
+            out.write(bytesOfImage)
+        return {"token": "Success", "url": ""}
+    
+    @app.route("/uploadpostpicture/", methods=["POST"])
+    def uploadpostpicture():
+        title = str(request.args.get("title"))
+        bytesOfImage = request.get_data()
+        with open(f'./static/{title}.jpeg', 'wb') as out:
+            out.write(bytesOfImage)
+        return {"token": "Success", "url": f"/static/{title}.jpeg"} 
+    
     @app.route("/getuseravatar/<username>", methods=["GET"])
     def getuseravatar(username):
         find_user = users.query.filter_by(username=username).first() #our 'User' that stores all cleanup events

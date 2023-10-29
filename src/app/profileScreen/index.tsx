@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground, ListRenderItem, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Pressable, ListRenderItem, FlatList } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
 import { fetchTotalHours } from '../api'; 
@@ -30,7 +30,7 @@ interface cleanupType {
     date: string,
     materials: string
 }
-
+// var dummy;
 var events: postType[] = [];
 var cleanEvents:cleanupType[] = [];
 let username:string = "";
@@ -111,7 +111,7 @@ const Avatar = () => { //http://10.0.2.2:6900/static/test.jpeg
                 setUserAvatar(username, form, "image/jpeg", response.assets[0] as any).then(resp => console.log(resp));
             }
         } catch (error) {
-            console.error('Error selecting photo: ', error);
+            console.error('Error selecting pho ', error);
         }
     };
     return (

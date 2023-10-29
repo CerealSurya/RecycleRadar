@@ -54,11 +54,28 @@ export const fetchTotalHours = async (username: string) => {
     }
 };
 
-export function publishpost(name:String, description:String, photo:String, author:String, location:String, date:String, hoursSpent: String): Promise<publishpostInterface>{
+export async function publishpost(name:String, description:String, photo:string, author:String, location:String, date:String, hoursSpent: String): Promise<publishpostInterface>{
+    let response:any;
+    try{
+        let finalName:string = name.replace(/\s/g, "");
+        console.log(finalName);
+        response = await FS.uploadAsync(`${SERVER_URL}/uploadpostpicture?title=${finalName}`, photo, {
+            headers: {
+              "content-type": "image/jpeg",
+            },
+            httpMethod: "POST",
+            uploadType: FS.FileSystemUploadType.BINARY_CONTENT,
+        });
+    }
+    catch(error){
+        console.log("here", error);
+    }
+    response = JSON.parse(response.body)
+    //console.log(`${SERVER_URL}${response["url"]}`);
     const body:Object = {
         "postName": name,
         "author": author,
-        "picture": photo,
+        "picture": `${SERVER_URL}${response.url}`,
         "description": description,
         "location": location,
         "date": date,
@@ -77,7 +94,7 @@ export function publishpost(name:String, description:String, photo:String, autho
       // The response has an `any` type, so we need to cast
       // it to the `User` type, and return it from the promise
         return res.json();
-    })
+    });
     return null as any;
 }
 interface getPostsInterface {
@@ -172,7 +189,10 @@ export async function getTopCleanups(location:object): Promise<getPostsInterface
     })
     return response.json() as any;
 }
-export function publishcleanup(data:Object): Promise<publishpostInterface>{
+export async function getCleanupPic(title:string): Promise<string>{
+    return `${SERVER_URL}/static/${title.replace(/\s/g, "")}.jpeg`;
+}
+export async function publishcleanup(data:any, pic:any): Promise<publishpostInterface>{
     fetch(`${SERVER_URL}/publishcleanup`, {
         method: 'POST',
         headers: {
@@ -187,5 +207,20 @@ export function publishcleanup(data:Object): Promise<publishpostInterface>{
       // it to the `User` type, and return it from the promise
         return res as publishpostInterface
     })
+    try{
+        let finalName:string = data.eventName.replace(/\s/g, "");
+        console.log(finalName);
+        let response = await FS.uploadAsync(`${SERVER_URL}/uploadcleanuppicture?title=${finalName}`, pic.uri, {
+            headers: {
+              "content-type": "image/jpeg",
+            },
+            httpMethod: "POST",
+            uploadType: FS.FileSystemUploadType.BINARY_CONTENT,
+        });
+        return response as any;
+    }
+    catch(error){
+        console.log("here", error);
+    }
     return null as any;
 }
