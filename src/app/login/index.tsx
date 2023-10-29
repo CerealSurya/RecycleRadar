@@ -5,6 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from "./styles"
 import { Link, useRouter } from "expo-router";
 import { Image } from 'expo-image';
+import * as FaceDetector from 'expo-face-detector';
+
 
 export default function login() {
     const navigation = useRouter();
