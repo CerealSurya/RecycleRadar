@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground, ListRenderItem, FlatList } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { launchImageLibrary, MediaType } from 'react-native-image-picker';
-import { fetchTotalHours } from '../api'; 
+import { fetchTotalHours } from '../api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from './styles';
 
@@ -103,7 +102,7 @@ export default function profileScreen() {
                 </Text>
             </View>
             <View>
-            <Text>Hours Contributed: {totalHours}</Text>
+                <Text>Hours Contributed: {totalHours}</Text>
             </View>
             <View>
                 <Text style={styles.title}>♻️Recent Posts♻️</Text>
