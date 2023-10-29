@@ -87,6 +87,36 @@ export async function getPosts(page:number): Promise<getPostsInterface>{
     }
     return null as any;
 }
+export async function getUserPosts(page:number, username:string): Promise<getPostsInterface>{
+    try{
+        const response = await fetch(`${SERVER_URL}/getuserposts?page=${page}&usern=${username}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        return response.json() as any;
+    }
+    catch(error){
+        console.log("here", error);
+    }
+    return null as any;
+}
+export async function getUserCleanups(page:number, username:string): Promise<getPostsInterface>{
+    try{
+        const response = await fetch(`${SERVER_URL}/getusercleanups?page=${page}&usern=${username}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        return response.json() as any;
+    }
+    catch(error){
+        console.log("here", error);
+    }
+    return null as any;
+}
 export async function getTopCleanups(location:object): Promise<getPostsInterface>{
     const response = await fetch(`${SERVER_URL}/gettopcleanups`, {
         method: 'POST',
