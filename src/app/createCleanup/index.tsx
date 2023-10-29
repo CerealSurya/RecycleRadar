@@ -83,6 +83,9 @@ export default function createCleanup({ navigation }: Props) {
             <TextInput
                 style={styles.titleInput}
                 placeholder="Description"
+                multiline
+                numberOfLines={5}
+                textAlignVertical="top"
                 onChangeText={setDescript}
             />
             <TextInput

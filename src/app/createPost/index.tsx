@@ -56,32 +56,34 @@ export default function CreatePost() {
     }
 
 
+
     return (
-        <View style= {styles.container}>
-            <Text style= {styles.title}>Create Post</Text>
+        <View style={styles.container}>
+            <Text style={styles.title}>Create Post</Text>
             <TextInput
-                style={styles.titleInput}
+                style={styles.input}
                 placeholder="Title"
                 onChangeText={setPostName}
             />
             <TextInput
-                style={styles.descripInput}
+                style={styles.descripInput}  // Updated style
                 placeholder="Description"
+                multiline={true}  // Allow multiple lines
                 onChangeText={setDescript}
             />
             <TextInput
-                style={styles.hoursInput}
+                style={styles.hoursInput}  // Updated style
                 placeholder="Hours Spent"
                 keyboardType="numeric"  // Ensure that only numbers can be input
                 onChangeText={setHoursSpent}
-/>
-            <Pressable style={styles.firstButton} onPress={handleChoosePhoto}>
+            />
+            <Pressable style={styles.button} onPress={handleChoosePhoto}>
                 <Text style={styles.text}>Select Photo</Text>
             </Pressable>
             {photo && <Image source={{ uri: photo.uri }} style={styles.photo} />}
-            <Pressable style={styles.secondButton} onPress={createPost}>
+            <Pressable style={styles.button} onPress={createPost}>
                 <Text style={styles.text}>Publish Post</Text>
             </Pressable>
         </View>
     );
-    }
+}

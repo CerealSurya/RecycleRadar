@@ -39,7 +39,6 @@ export default function login() {
                 <Text style={styles.title}>Welcome Back!</Text>
                 <Text style={styles.subtitle}>Enter Username and Password Below</Text>
                 <TextInput style={styles.username}
-                    //style={styles.input} //TODO: Get the styles working
                     placeholder="Username"
                     onChangeText={setUsername}
                 />
@@ -58,14 +57,12 @@ export default function login() {
                     Forgot
                     <Link href='../CreateAccount/createAccount' style={styles.linkSign}> Password?</Link>
                     {'\n\n\t\t\t\t\t\t\t\t\tOr\n\n\t\tSign Up Using'}
-
                 </Text>
                 {/* <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <Pressable style={styles.google}><Text style={styles.text}>Google</Text></Pressable>
                     <Pressable style={styles.facebook}><Text style={styles.text}>Facebook</Text></Pressable>
                 </View> */}
             </View>
-
         </View >
     );
 };

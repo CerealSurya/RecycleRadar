@@ -1,102 +1,68 @@
 import { StyleSheet } from 'react-native';
 
-
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+      flex: 1,
+      paddingHorizontal: 20,
+      paddingTop: 10,
+      backgroundColor: '#e8f5e9',  // Light green background
   },
   title: {
-    alignSelf: 'flex-start',
-    fontSize: 50,
-    paddingTop: 50,
-    paddingBottom:5,
-    paddingLeft: 20,
-    lineHeight: 21,
-    fontWeight: 'bold',
-    letterSpacing: 0.25,
-    color: 'black',
+      fontSize: 34,
+      fontWeight: '700',
+      marginBottom: 20,
+      color: '#2e7d32',  // Dark green text color
   },
-  titleInput: {
-    position: 'relative',
-    top: 15,
-    left: 30,
-    fontSize: 24,
-    borderWidth: 0,
-    height: 80,
-    width: 320,
-    margin: 2,
-    borderBottomWidth: 2,
-    paddingTop: 5,
-    paddingBottom: 2,
-    paddingRight:20,
+  input: {
+      fontSize: 18,
+      paddingVertical: 10,
+      paddingHorizontal: 15,
+      marginBottom: 20,
+      borderWidth: 1,
+      borderColor: '#c8e6c9',  // Light green border color
+      borderRadius: 10,
+      backgroundColor: '#ffffff',  // White background
   },
   descripInput: {
-    position: 'relative',
-    top: 30,
-    left: 30,
-    fontSize: 24,
-    borderWidth: 0,
-    height: 80,
-    width: 320,
-    margin: 2,
-    borderBottomWidth: 2,
-    paddingTop: 5,
-    paddingBottom: 2,
-    paddingRight:20,
-  },
-  secondButton: {
-    alignSelf: 'flex-end',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-    top: 105,
-    right: 12,
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 12,
-    backgroundColor: 'black',
-  },
-  firstButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-    top: 60,
-    left: 30,
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    borderRadius: 12,
-    backgroundColor: 'black',
-  },
-  text: {
-    fontSize: 20,
-    lineHeight: 21,
-    paddingTop: 5,
-    fontWeight: 'bold',
-    letterSpacing: 0.25,
-    color: 'white',
-  },
-  photo: {
-    position: 'relative',
-    top: 80,
-    left: 30,
-    width: 340,
-    height: 275,
+      fontSize: 18,
+      paddingVertical: 10,
+      paddingHorizontal: 15,
+      height: 110,
+      borderWidth: 1,
+      borderColor: '#c8e6c9',  // Light green border color
+      borderRadius: 10,
+      backgroundColor: '#ffffff',  // White background
+      textAlignVertical: 'top',
+      marginBottom: 20,
   },
   hoursInput: {
-    position: 'relative',
-    top: 30,
-    left: 30,
-    fontSize: 24,
-    borderWidth: 0,
-    height: 80,
-    width: 320,
-    margin: 2,
-    borderBottomWidth: 2,
-    paddingTop: 5,
-    paddingBottom: 2,
-    paddingRight:20,
-}
+      fontSize: 18,
+      paddingVertical: 10,
+      paddingHorizontal: 15,
+      height: 40,
+      borderWidth: 1,
+      borderColor: '#c8e6c9',  // Light green border color
+      borderRadius: 10,
+      backgroundColor: '#ffffff',  // White background
+      marginBottom: 20,
+  },
+  button: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 15,
+      borderRadius: 10,
+      backgroundColor: '#388e3c',  // Green button color
+      marginBottom: 20,
+      position: 'relative',
+  },
+  text: {
+      fontSize: 18,
+      color: '#fff',  // White text color
+  },
+  photo: {
+      width: '100%',
+      height: 200,
+      marginBottom: 20,
+      borderRadius: 10,
+  },
 });
-
