@@ -112,12 +112,14 @@ def main(testing, app, db, users):
         "location"
         "date" #date that client side generates
         "id" #server overrides it
-        find_user = users.query.filter_by(username=postDetails["author"]).first()
+        "hours spent"
+        find_user = users.query.filter_by(username="posts").first() #our 'User' that stores all posts
+        find_other_user = users.query.filter_by(username=postDetails["author"]).first()
         if find_user == None:
             return {"token": "failed", "reason": "User not found"} #should never happen 
         else:
             # Increment the user's total hoursSpent
-            find_user.hoursSpent += float(postDetails["hoursSpent"])  # Assuming hoursSpent is sent as a string
+            find_other_user.hoursSpent += float(postDetails["hoursSpent"])  # Assuming hoursSpent is sent as a string
 
             # Update the events
             postDetails["id"] = str(len(find_user.events))
@@ -137,10 +139,55 @@ def main(testing, app, db, users):
         user = users.query.filter_by(username=username).first()
         if not user:
             return {"error": "User not found"}, 404  # Not Found
-        response_data = {"totalHours": total_hours}
+        #response_data = {"totalHours": total_hours}
 
         return {"totalHours": user.hoursSpent,"token": "Success"}
+    @app.route("/getuserposts/", methods=["GET"])
+    def getuserposts():
+        page = int(request.args.get("page"))
+        usern = str(request.args.get("usern"))
+        find_user = users.query.filter_by(username="posts").first() #our 'User' that stores all cleanup events
+        if find_user == None:
+            return {"token": "failed", "reason": "User not found"} #should never happen 
+        else:
+            baseEvents = []
+            for events in find_user.events:
+                if events["author"] == usern:
+                    baseEvents.append(events)
+            events = [] #returns events in 10 block increments
+            if len(baseEvents) < 10:
+                events = baseEvents
+            elif page*10 > len(baseEvents):
+                events = baseEvents[:10]
+            elif page != 1:
+                events = baseEvents[-(page*10):(page*10-10)]
+            else:
+                events = baseEvents[-(page*10):]
 
+            return {"token": "Success", "events": events}
+    @app.route("/getusercleanups/", methods=["GET"])
+    def getusercleanups():
+        page = int(request.args.get("page"))
+        usern = str(request.args.get("usern"))
+        find_user = users.query.filter_by(username="cleanup").first() #our 'User' that stores all cleanup events
+        if find_user == None:
+            return {"token": "failed", "reason": "User not found"} #should never happen 
+        else:
+            baseEvents = []
+            for events in find_user.events:
+                if events["author"] == usern:
+                    baseEvents.append(events)
+            events = [] #returns events in 10 block increments
+            if len(baseEvents) < 10:
+                events = baseEvents
+            elif page*10 > len(baseEvents):
+                events = baseEvents[:10]
+            elif page != 1:
+                events = baseEvents[-(page*10):(page*10-10)]
+            else:
+                events = baseEvents[-(page*10):]
+
+            return {"token": "Success", "events": events}
     @app.route("/getposts/", methods=["GET"])
     def getposts():
         page = int(request.args.get("page"))
