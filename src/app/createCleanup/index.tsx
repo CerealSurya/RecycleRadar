@@ -30,7 +30,7 @@ export default function createCleanup({ navigation }: Props) {
     React.useEffect(() => {
         (async () => {
             let authorr = await AsyncStorage.getItem('username');
-            if (authorr != null){setAuthor(authorr);}
+            if (authorr != null) { setAuthor(authorr); }
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 setLocation('Permission to access location was denied');
@@ -56,7 +56,7 @@ export default function createCleanup({ navigation }: Props) {
     }
     const createCleanup = async () => {
         if (postName != "" && postDescript != "") {
-            const data:object = {
+            const data: object = {
                 eventName: postName,
                 author: author,
                 picture: photo.uri,
@@ -73,8 +73,8 @@ export default function createCleanup({ navigation }: Props) {
         }
     }
     return (
-        <View style= {styles.container}>
-            <Text style= {styles.title}>Create Cleanup</Text>
+        <View style={styles.container}>
+            <Text style={styles.title}>Create Cleanup</Text>
             <TextInput
                 style={styles.titleInput}
                 placeholder="Title"
