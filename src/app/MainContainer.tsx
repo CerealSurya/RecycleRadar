@@ -55,6 +55,7 @@ export default function MainContainer() {
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
                 headerShown: false,
+                unmountOnBlur: true,
             })}
         >
             <Tab.Screen name={homee} component={ScrollPage} />
