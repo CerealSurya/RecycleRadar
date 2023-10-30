@@ -78,13 +78,12 @@ export default function CreatePost() {
                 onChangeText={setHoursSpent}
             />
             <Pressable style={styles.button} onPress={handleChoosePhoto}>
-                <Text style={styles.text}>Select Photo</Text>
+                <Text style={styles.buttonText}>Select Photo</Text>
             </Pressable>
             {photo && <Image source={{ uri: photo.uri }} style={styles.photo} />}
             <Pressable style={styles.button} onPress={createPost}>
-                <Text style={styles.text}>Publish Post</Text>
+                <Text style={styles.buttonText}>Publish Post</Text>
             </Pressable>
-
         </View>
     );
 }

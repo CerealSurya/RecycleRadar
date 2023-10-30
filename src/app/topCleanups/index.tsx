@@ -39,9 +39,10 @@ const Item = ({ data }: { data: cleanupType }) => { //post component
 
 // var events: cleanupType[] = [oneItem, oneItem, oneItem];
 
-var events: cleanupType[] = [];
 
 export default function topCleanups() {
+    var events: cleanupType[] = [];
+
     var loc: Object = { "altitude": 0, "heading": 0, "altitudeAccuracy": 100, "latitude": 0, "speed": 0, "longitude": 0, "accuracy": 100 };
     const [location, setLocation] = React.useState<any>(loc);
     const renderItem: ListRenderItem<cleanupType> = ({ item }) => (<Item data={item} />);
@@ -59,7 +60,7 @@ export default function topCleanups() {
                         counter++;
                     }
                     else {
-                        var daEvent:cleanupType = response.events[i] as cleanupType;
+                        var daEvent: cleanupType = response.events[i] as cleanupType;
                         const rep = await getCleanupPic(daEvent.eventName);
                         console.log(rep);
                         daEvent.picture = rep;
