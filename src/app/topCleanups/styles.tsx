@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   background: {
     backgroundColor: '#e0e5ec',
-    backgroundColor: '#e0e5ec',
   },
   container: {
     justifyContent: 'flex-start',
@@ -35,7 +34,6 @@ export const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#333',  // Adjusted color
-    color: '#333',  // Adjusted color
   },
   postDescrip: {
     position: 'relative',
@@ -44,7 +42,6 @@ export const styles = StyleSheet.create({
     paddingBottom: 20,
     fontSize: 16,
     color: '#333',  // Adjusted color
-    color: '#333',  // Adjusted color
   },
   postAuthor: {
     position: 'relative',
@@ -52,7 +49,6 @@ export const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingBottom: 20,
     fontSize: 18,
-    color: '#333',  // Adjusted color
     color: '#333',  // Adjusted color
   },
   postPicture: {
