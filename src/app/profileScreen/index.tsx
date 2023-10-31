@@ -67,10 +67,10 @@ function Info() {
 }
 const Item = ({ data }: { data: postType }) => {
     return (
-        <>
+        <View>
             {data.picture && <Image source={{ uri: data.picture }} style={styles.picture} />}
             <Text>  </Text>
-        </>
+        </View>
     );
 }
 const SecondItem = ({ data }: { data: cleanupType }) => {

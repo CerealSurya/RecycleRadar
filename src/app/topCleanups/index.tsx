@@ -29,7 +29,7 @@ const Item = ({ data }: { data: cleanupType }) => { //post component
     return (
         <View style={styles.card}>
             <Text style={styles.postTitle}>{data.eventName}</Text>
-            <Text style={styles.postAuthor}>    - {data.author}</Text>
+            <Text style={styles.postAuthor}>{data.author}</Text>
             <Text style={styles.postAuthor}>Materials: {data.materials}</Text>
             {data.picture && <Image source={{ uri: data.picture }} style={styles.postPicture} />}
             <Text style={styles.postDescrip}>{data.description}</Text>

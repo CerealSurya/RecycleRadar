@@ -34,19 +34,35 @@ export const styles = StyleSheet.create({
         paddingLeft: 200,
         marginTop: 20,
         bottom: 120,
+        shadowColor: '#000000',
+        shadowOffset: {
+        width: -8,
+        height: -8,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 5,
+        elevation: 10,
     },
     avatarContainer: {
-        width: 200,
-        height: 200,
+        width: 210,
+        height: 210,
         borderRadius: 100,
-        borderWidth: 1,
+        borderWidth: 0.5,
         borderColor: '#9B9B9B',
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'flex-start',
         marginTop: 5,
         top: 30,
-        right:20
+        right:20,
+        shadowColor: '#00ff00',
+        shadowOffset: {
+        width: -8,
+        height: -8,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 5,
+        elevation: 10,
     },
     avatar: {
         width: 200,
@@ -68,13 +84,6 @@ export const styles = StyleSheet.create({
     cards: {
         padding: 8,
     },
-    card: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 100,
-        height: 100,
-    },
     cardRecent: {
         backgroundColor: '#fffff'
     },
@@ -85,7 +94,7 @@ export const styles = StyleSheet.create({
         width: 200,
         height: 150,
         backgroundColor: 'black',
-        borderRadius:20
+        borderRadius:20,
     },
     postText: {
         position: 'relative',

@@ -25,7 +25,7 @@ const oneItem: postType = {
     id: "1"
 };
 
-var events: postType[] = [oneItem, oneItem, oneItem, oneItem];
+var events: postType[] = [];
 
 
 
