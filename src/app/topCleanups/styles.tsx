@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   background: {
     backgroundColor: '#e0e5ec',
+    backgroundColor: '#e0e5ec',
   },
   container: {
     justifyContent: 'flex-start',
@@ -25,41 +26,6 @@ export const styles = StyleSheet.create({
     elevation: 10,
     overflow: 'hidden',
   },
-  avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,  // Adjusted border radius
-    backgroundColor: '#e0e5ec',  // Adjusted background color
-    borderWidth: 2,  // Added border
-    borderColor: '#D1D9E6',  // Added border color
-  },
-  time: {
-    position: 'relative',
-    paddingTop: 2,
-    paddingLeft: 10,
-    paddingBottom: 20,
-    fontSize: 14,
-    color: '#333',  // Adjusted color
-  },
-  icons: {
-    flexDirection: 'row',
-    alignSelf: 'flex-start',
-  },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-    borderRadius: 12,
-    backgroundColor: '#e0e5ec',
-    shadowColor: '#D1D9E6',
-    shadowOffset: {
-      width: -8,
-      height: -8,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 5,
-    elevation: 10,
-  },
   postTitle: {
     position: 'relative',
     alignSelf: 'center',
@@ -69,6 +35,7 @@ export const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#333',  // Adjusted color
+    color: '#333',  // Adjusted color
   },
   postDescrip: {
     position: 'relative',
@@ -77,6 +44,7 @@ export const styles = StyleSheet.create({
     paddingBottom: 20,
     fontSize: 16,
     color: '#333',  // Adjusted color
+    color: '#333',  // Adjusted color
   },
   postAuthor: {
     position: 'relative',
@@ -84,6 +52,7 @@ export const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingBottom: 20,
     fontSize: 18,
+    color: '#333',  // Adjusted color
     color: '#333',  // Adjusted color
   },
   postPicture: {
