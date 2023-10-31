@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
         color: '#2e7d32',  // Dark green text color
     },
     titleInput: {
+        fontWeight: 'bold',
         fontSize: 18,
         paddingVertical: 10,
         paddingHorizontal: 15,

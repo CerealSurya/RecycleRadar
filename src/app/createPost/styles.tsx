@@ -77,7 +77,6 @@ export const styles = StyleSheet.create({
         marginBottom: 20,
         //backgroundColor: '#388e3c',  // Green button color
         borderRadius: 10,
-
         backgroundColor: '#e8f5e9',  // Light Green background
         shadowColor: 'black',
         shadowOffset: {
