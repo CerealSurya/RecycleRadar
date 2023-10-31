@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   background: {
-    backgroundColor: '#B4CEB3',
+    backgroundColor: '#e0e5ec',
   },
   container: {
     justifyContent: 'flex-start',
@@ -11,10 +11,20 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   card: {
-    borderWidth: 5,
+    alignSelf: 'center',
+    borderRadius: 30,
     margin: 10,
-    backgroundColor: '#448547',
-    borderRadius: 20,
+    padding: 20,
+    backgroundColor: '#e0e5ec',
+    shadowColor: 'rgb(37, 150, 190)',
+    shadowOffset: {
+      width: -12,
+      height: -12,
+    },
+    shadowOpacity: 1,  // Adjusted opacity to a valid value
+    shadowRadius: 30,
+    elevation: 10,
+    overflow: 'hidden',
   },
   postTitle: {
     position: 'relative',
@@ -24,7 +34,7 @@ export const styles = StyleSheet.create({
     paddingLeft: 10,
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#ffffff',
+    color: '#333',  // Adjusted color
   },
   postDescrip: {
     position: 'relative',
@@ -32,7 +42,7 @@ export const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingBottom: 20,
     fontSize: 16,
-    color: '#ffffff',
+    color: '#333',  // Adjusted color
   },
   postAuthor: {
     position: 'relative',
@@ -40,7 +50,7 @@ export const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingBottom: 20,
     fontSize: 18,
-    color: '#ffffff',
+    color: '#333',  // Adjusted color
   },
   postPicture: {
     position: 'relative',
