@@ -23,6 +23,15 @@ interface cleanupType {
 //     date: "2023-10-28",
 //     materials: "1"
 // }
+// const oneItem: cleanupType = {
+//     eventName: "Helping the Community At WhiteRock",
+//     author: "Author Name",
+//     picture: "https://static.wixstatic.com/media/1e8f13_693e417d0a9c44768f1ca6044f5bfa32~mv2.jpg/v1/fill/w_640,h_568,al_l,q_85,usm_0.66_1.00_0.01,enc_auto/1e8f13_693e417d0a9c44768f1ca6044f5bfa32~mv2.jpg",
+//     description: "We visited this fabulous place and explored the wilderness. It was like nothing else we'd ever imagined.",
+//     location: "Example Location",
+//     date: "2023-10-28",
+//     materials: "1"
+// }
 
 
 const Item = ({ data }: { data: cleanupType }) => { //post component
@@ -41,7 +50,7 @@ var events: cleanupType[] = [];
 
 
 export default function topCleanups() {
-    // var events: cleanupType[] = [];
+    var events: cleanupType[] = [];
 
     var loc: Object = { "altitude": 0, "heading": 0, "altitudeAccuracy": 100, "latitude": 0, "speed": 0, "longitude": 0, "accuracy": 100 };
     const [location, setLocation] = React.useState<any>(loc);

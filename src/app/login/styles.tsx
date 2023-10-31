@@ -27,20 +27,32 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     marginBottom: 20,
-    borderWidth: 1,
-    borderColor: '#c8e6c9',  // Light green border color
-    borderRadius: 10,
-    backgroundColor: '#ffffff',  // White background
+    borderRadius: 12,  // Adjusted border radius
+    backgroundColor: '#e8f5e9',  // Adjusted background color
+    shadowColor: 'black',
+    shadowOffset: {
+      width: -8,
+      height: -8,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 5,
+    elevation: 10,
   },
   password: {
     fontSize: 18,
     paddingVertical: 10,
     paddingHorizontal: 15,
     marginBottom: 20,
-    borderWidth: 1,
-    borderColor: '#c8e6c9',  // Light green border color
-    borderRadius: 10,
-    backgroundColor: '#ffffff',  // White background
+    borderRadius: 12,  // Adjusted border radius
+    backgroundColor: '#e8f5e9',  // Adjusted background color
+    shadowColor: 'black',
+    shadowOffset: {
+      width: -8,
+      height: -8,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 5,
+    elevation: 10,
   },
   button: {
     alignItems: 'center',

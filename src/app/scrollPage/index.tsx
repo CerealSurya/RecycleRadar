@@ -15,17 +15,17 @@ interface postType {
     id: string
 }
 
-const oneItem: postType = {
-    postName: "Helping the Community At WhiteRock",
-    author: "Author Name",
-    picture: "https://variety.com/wp-content/uploads/2023/08/ONEPIECE_Unit_10613RC.jpg?w=1024",
-    description: "We visited this fabulous place and explored the wilderness. It was like nothing else we'd ever imagined.",
-    location: "Example Location",
-    date: "2023-10-28",
-    id: "1"
-};
+// const oneItem: postType = {
+//     postName: "Helping the Community At WhiteRock",
+//     author: "Author Name",
+//     picture: "https://variety.com/wp-content/uploads/2023/08/ONEPIECE_Unit_10613RC.jpg?w=1024",
+//     description: "We visited this fabulous place and explored the wilderness. It was like nothing else we'd ever imagined.",
+//     location: "Example Location",
+//     date: "2023-10-28",
+//     id: "1"
+// };
 
-var events: postType[] = [];
+// var events: postType[] = [];
 
 
 
@@ -75,7 +75,7 @@ export const Item = ({ data }: { data: postType }) => { //post component
 
 
 export default function scrollPage() {
-    // var events: postType[] = [];
+    var events: postType[] = [];
 
     const [page, setPage] = React.useState(1);
     const renderItem: ListRenderItem<postType> = ({ item }) => (<Item data={item} />);
