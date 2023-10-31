@@ -101,7 +101,7 @@ def main(testing, app, db, users):
                     getMin()
             for num in indices:
                 events.append(find_user.events[num])
-            return {"token": "Success", "events": events} 
+            return {"token": "Success", "events": find_user.events} 
 
     @app.route("/publishpost/", methods=["POST"])
     def publishpost():

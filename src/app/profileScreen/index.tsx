@@ -44,6 +44,7 @@ function Info() {
                 username = response;
                 fetchTotalHours(response).then(resp => (setHours(resp)));
                 getUserCleanups(1, response).then(r =>{
+                    console.log(r.events);
                     for (let i = 0; i < r.events.length; i++)
                     {
                         cleanEvents.push(r.events[i] as cleanupType);

@@ -53,7 +53,7 @@ export const Item = ({ data }: { data: postType }) => { //post component
         <View style={styles.card}>
             <View style={{ flexDirection: 'row', top: 7, right: -10 }}>
                 {avatar && <Image source={{ uri: avatar }} style={styles.avatar} />}
-                <Text style={styles.postAuthor}>{data.author + '\n' + data.date}</Text>
+                <Text style={styles.postAuthor}>{data.author}</Text>
             </View>
             <Text style={styles.postTitle}>{data.postName}</Text>
             {data.picture && <Image source={{ uri: data.picture }} style={styles.postPicture} />}
